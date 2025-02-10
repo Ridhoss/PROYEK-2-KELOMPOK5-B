@@ -5,7 +5,8 @@ Kelompok 5 :
 - Ridho Sulistyo Saputro
 - Salma Arifah Zahra
 - Samudra Putra Gunawan
-- Dimas Rizal Ramdhani
+- Dimas Rizal Ramadhani 
 - Akmal Rezaqi Al-Farhan
 
 test 
+Ramadhani bukan Ramdhani eaa~~ anjay mabar
