@@ -10,6 +10,5 @@ Kelompok 5 :
 
 APLIKASI ULAR MAKAN APEL HEHE
 
-test 
-Ramadhani bukan Ramdhani eaa~~ anjay mabar
-nyobain dulu
+// running aplikasi
+// g++ main.c body/mainbody.c -o main.exe -I"C:\MinGW-w64\mingw64\include" -L"C:\MinGW-w64\mingw64\lib" -lbgi -lgdi32 -lcomdlg32 -luuid -loleaut32 -lole32
