@@ -1,5 +1,6 @@
 #include <graphics.h>
 #include <conio.h>
+#include <string.h>
 #include <stdlib.h>
 #include "header/mainhead.h"
 
@@ -8,16 +9,21 @@
 
 int main() {
     int gd = DETECT, gm;
-    initgraph(&gd, &gm, NULL); 
+    initgraph(&gd, &gm, NULL);
 
-    // batas tampilan
-    Kotak(10, 10, SCREEN_WIDTH - 10, SCREEN_HEIGHT - 10, "WHITE");
+    // background
+    setbkcolor(CYAN);
+    cleardevice();
 
     // arena
-    Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "WHITE");
+    Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "BLACK");
 
     // ular
     Kotak(20, 60, 40, 80, "WHITE");
+
+    getch();
+    closegraph();
+    return 0;
 
     getch();
     closegraph();

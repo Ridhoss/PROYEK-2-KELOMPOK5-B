@@ -1,8 +1,12 @@
-#include "../header/mainhead.h"
 #include <graphics.h>
+#include <conio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "../header/mainhead.h"
 
-// function warna
-int AmbilWarna(const char *color) {
+// Fungsi untuk mengonversi warna dari string ke nilai integer
+int AmbilWarna(CSTR color) 
+{
     if (strcmp(color, "BLACK") == 0) return BLACK;
     if (strcmp(color, "BLUE") == 0) return BLUE;
     if (strcmp(color, "GREEN") == 0) return GREEN;
@@ -23,14 +27,47 @@ int AmbilWarna(const char *color) {
     return WHITE;
 }
 
-// procedure membuat kotak
-void Kotak(int x1, int y1, int x2, int y2, const char *warna) {
+// Fungsi membuat teks
+void tulisan(int x, int y, int lebar, int tinggi, CSTR warna, CSTR teks, int ukuran, typePenempatanTulisan penempatan) 
+{
+    setcolor(AmbilWarna(warna));
+    settextstyle(BOLD_FONT, HORIZ_DIR, ukuran);
 
+    char teksCopy[100];
+    strcpy(teksCopy, teks);
+
+    int textX, textY, textWidth, textHeight;
+
+    if (penempatan == Center) {
+        textWidth = textwidth(teksCopy);
+        textHeight = textheight(teksCopy);
+        textX = x + (lebar - textWidth) / 2;
+        textY = y + (tinggi - textHeight) / 2;
+
+    } else if (penempatan == Random) {
+        textX = x;
+        textY = y;
+    }
+
+    outtextxy(textX, textY, teksCopy);
+}
+
+// Fungsi menggambar kotak berisi warna
+void Kotak(int x1, int y1, int x2, int y2, CSTR warna) 
+{
     int ambilwarna = AmbilWarna(warna);
-    setcolor(ambilwarna);
 
-    line(x1, y1, x2, y1); // Garis atas
-    line(x2, y1, x2, y2); // Garis kanan
-    line(x2, y2, x1, y2); // Garis bawah
-    line(x1, y2, x1, y1); // Garis kiri
+    setfillstyle(SOLID_FILL, ambilwarna);
+    bar(x1, y1, x2, y2);
+
+    setcolor(ambilwarna);
+    rectangle(x1, y1, x2, y2);
+}
+
+// Fungsi membuat tombol dengan teks (lebih praktis)
+void tombol(int x, int y, int panjang, int lebar, CSTR warna, CSTR teks, int ukuranTeks) 
+{
+    Kotak(x, y, x + panjang, y + lebar, warna);
+    setbkcolor(AmbilWarna(warna));
+    tulisan(x, y, panjang, lebar, "WHITE", teks, ukuranTeks, Center);
 }
