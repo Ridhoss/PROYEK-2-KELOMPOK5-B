@@ -7,6 +7,16 @@ typedef enum { Center, Random } typePenempatanTulisan;
 typedef struct {int x, y;} Segment;
 typedef enum { UP, DOWN, LEFT, RIGHT } Direction;
 
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
+#define MAX_LENGTH 100
+#define CELL_SIZE 20
+
+// Variabel global untuk ular
+extern Segment ular[MAX_LENGTH]; // Array untuk menyimpan tubuh ular
+extern int panjangUlar;          // Panjang awal ular
+extern Direction arah;           // Arah pergerakan ular
+
 // header mengambil warna
 int AmbilWarna(CSTR color);
 // header membuat tulisan
@@ -19,17 +29,17 @@ void tombol(int x, int y, int panjang, int lebar, CSTR warna, CSTR teks, int uku
 void GenerateRandomPosition(int *x, int *y);
 //header membuat makanan
 void Makanan(int x, int y);
-// Inisialisasi posisi awal ular
+//header Inisialisasi posisi awal ular
 void InitUlar();
-// Menggerakkan ular berdasarkan input
+//header Menggerakkan ular berdasarkan input
 void GerakUlar();
-// Mengecek apakah ular bertabrakan dengan dinding/tubuhnya sendiri
+//header Mengecek apakah ular bertabrakan dengan dinding/tubuhnya sendiri
 void CekTabrakan();
-// Mengecek apakah ular memakan makanan
+//header Mengecek apakah ular memakan makanan
 void CekMakanMakanan();
-// Menggambar ulang ular di layar
+//header Menggambar ulang ular di layar
 void GambarUlar();
-// Loop utama game
+//header Loop utama game
 void LoopGame();
 
 #endif   

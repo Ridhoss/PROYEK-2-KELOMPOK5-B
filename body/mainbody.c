@@ -6,13 +6,10 @@
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
-#define MAX_LENGTH 100
-#define CELL_SIZE 20
 
-// Variabel global untuk ular
-extern Segment ular[MAX_LENGTH]; // Array untuk menyimpan tubuh ular
-extern int panjangUlar;          // Panjang awal ular
-extern Direction arah;           // Arah pergerakan ular
+Segment ular[MAX_LENGTH];
+int panjangUlar = 3;
+Direction arah = RIGHT;
 
 // Fungsi untuk mengonversi warna dari string ke nilai integer
 int AmbilWarna(CSTR color) 
@@ -93,12 +90,7 @@ void Makanan(int x, int y) {
     Kotak(x, y, x + 20, y + 20, "RED"); // Menggambar makanan dalam bentuk kotak merah
 }
 
-// Variabel global untuk ular
-Segment ular[MAX_LENGTH]; // Array untuk menyimpan posisi tubuh ular
-int panjangUlar = 3;      // Panjang awal ular
-Direction arah = RIGHT;   // Arah awal pergerakan ular
-
-// Inisialisasi posisi awal ular
+//Fungsi Inisialisasi posisi awal ular
 void InitUlar() {
     int startX = SCREEN_WIDTH / 2;
     int startY = SCREEN_HEIGHT / 2;
@@ -109,7 +101,7 @@ void InitUlar() {
     }
 }
 
-// Menggerakkan ular
+//Fungsi Menggerakkan ular
 void GerakUlar() {
     // Pindahkan badan ular mengikuti kepala
     for (int i = panjangUlar - 1; i > 0; i--) {
@@ -123,7 +115,7 @@ void GerakUlar() {
     if (arah == RIGHT) ular[0].x += CELL_SIZE;
 }
 
-// Mengecek tabrakan dengan dinding atau tubuh sendiri
+//Fungsi Mengecek tabrakan dengan dinding atau tubuh sendiri
 void CekTabrakan() {
     // Cek tabrakan dengan dinding
     if (ular[0].x < 20 || ular[0].x >= SCREEN_WIDTH - 20 ||
@@ -138,7 +130,7 @@ void CekTabrakan() {
     }
 }
 
-// Mengecek apakah ular makan makanan
+//FUngsi Mengecek apakah ular makan makanan
 void CekMakanMakanan(int *makananX, int *makananY) {
     if (ular[0].x == *makananX && ular[0].y == *makananY) {
         panjangUlar++; // Tambah panjang ular
@@ -146,14 +138,14 @@ void CekMakanMakanan(int *makananX, int *makananY) {
     }
 }
 
-// Menggambar ulang ular di layar
+//Fungsi Menggambar ulang ular di layar
 void GambarUlar() {
     for (int i = 0; i < panjangUlar; i++) {
         Kotak(ular[i].x, ular[i].y, ular[i].x + CELL_SIZE, ular[i].y + CELL_SIZE, "GREEN");
     }
 }
 
-// Loop utama game
+//FUngsi Loop utama game
 void LoopGame() {
     int makananX, makananY;
     GenerateRandomPosition(&makananX, &makananY);
