@@ -21,11 +21,11 @@ int main() {
     // ular
     // Kotak(20, 60, 40, 80, "WHITE");
 
-    getch();
-    closegraph();
-    return 0;
+    // tombol button
+    tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
 
     getch();
     closegraph();
     return 0;
+
 }
