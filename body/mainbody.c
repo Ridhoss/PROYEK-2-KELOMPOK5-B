@@ -60,7 +60,7 @@ void Kotak(int x1, int y1, int x2, int y2, CSTR warna)
     setfillstyle(SOLID_FILL, ambilwarna);
     bar(x1, y1, x2, y2);
 
-    setcolor(BLACK);
+    setcolor(ambilwarna);
     rectangle(x1, y1, x2, y2);
 }
 

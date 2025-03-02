@@ -15,20 +15,15 @@ int main() {
     setbkcolor(CYAN);
     cleardevice();
 
-    // tulisan judul
-    char judul[50] = "SNACK SNAKE B5";
-    tulisan(0, 120, SCREEN_WIDTH, 0, "WHITE", judul, 6, Center);
+    // arena
+    Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "BLACK");
 
-    // ukuran tombol
-    int tombolLebar = 200;
-    int tombolTinggi = 50;
-    int posisiX = (SCREEN_WIDTH - tombolLebar) / 2;
-    int posisiY = 190;
+    // ular
+    Kotak(20, 60, 40, 80, "GREEN");
 
-    // tombol Start
-    tombol(posisiX, posisiY, tombolLebar, tombolTinggi, "DARKGRAY", "START" , 3);
-    // tombol Exit
-    tombol(posisiX, posisiY + 80, tombolLebar, tombolTinggi, "DARKGRAY", "EXIT", 3);
+    getch();
+    closegraph();
+    return 0;
 
     getch();
     closegraph();
