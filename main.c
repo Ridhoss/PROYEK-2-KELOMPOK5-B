@@ -24,6 +24,16 @@ int main() {
     // tombol button
     tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
 
+     // tulisan score
+     setbkcolor(CYAN);
+     char score[100] = "Score: 0";
+     tulisan(20, 20, 0, 0, "WHITE", score, 2, Random);
+
+     // tulisan stopwatch
+    char stopwatch[100] = "00:20:00";
+    tulisan(0, 30, SCREEN_WIDTH, 0, "WHITE", stopwatch, 2, Center);
+
+
     getch();
     closegraph();
     return 0;
