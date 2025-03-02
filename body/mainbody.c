@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include "../header/mainhead.h"
 
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
+
 // Fungsi untuk mengonversi warna dari string ke nilai integer
 int AmbilWarna(CSTR color) 
 {
@@ -70,4 +73,15 @@ void tombol(int x, int y, int panjang, int lebar, CSTR warna, CSTR teks, int uku
     Kotak(x, y, x + panjang, y + lebar, warna);
     setbkcolor(AmbilWarna(warna));
     tulisan(x, y, panjang, lebar, "WHITE", teks, ukuranTeks, Center);
+}
+
+// Fungsi membuat posisi acak  
+void GenerateRandomPosition(int *x, int *y) {
+    *x = 20 + (rand() % ((SCREEN_WIDTH - 40) / 20)) * 20; // membuat posisi acak pada sumbu x
+    *y = 60 + (rand() % ((SCREEN_HEIGHT - 80) / 20)) * 20; // membuat posisi acak pada sumbu y
+}
+
+//Fungsi membuat makanan
+void Makanan(int x, int y) {
+    Kotak(x, y, x + 20, y + 20, "RED"); // Menggambar makanan dalam bentuk kotak merah
 }

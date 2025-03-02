@@ -13,5 +13,9 @@ void tulisan(int x, int y, int lebar, int tinggi, CSTR warna, CSTR teks, int uku
 void Kotak(int x1, int y1, int x2, int y2, CSTR warna);
 // header membuat tombol
 void tombol(int x, int y, int panjang, int lebar, CSTR warna, CSTR teks, int ukuranTeks);
+//header random posisi
+void GenerateRandomPosition(int *x, int *y);
+//header membuat makanan
+void Makanan(int x, int y);
 
 #endif   
