@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "header/mainhead.h"
+#include "header/pages.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
@@ -11,27 +12,23 @@ int main() {
     int gd = DETECT, gm;
     initgraph(&gd, &gm, NULL);
 
-    // background
-    setbkcolor(CYAN);
-    cleardevice();
+    int posisiLayar = 0;
 
-    // arena
-    Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "WHITE");
+    for (;;) {
+        cleardevice();
+        if(posisiLayar == 0) {
+            tampilanAwal();
+        } else if(posisiLayar == 1) {
+            tampilanArena();
+        }
 
-    // ular
-    // Kotak(20, 60, 40, 80, "WHITE");
-
-    // tombol button
-    tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
-
-     // tulisan score
-     setbkcolor(CYAN);
-     char score[100] = "Score: 0";
-     tulisan(20, 20, 0, 0, "WHITE", score, 2, Random);
-
-     // tulisan stopwatch
-    char stopwatch[100] = "00:20:00";
-    tulisan(0, 30, SCREEN_WIDTH, 0, "WHITE", stopwatch, 2, Center);
+        char key = getch();
+        if(key == 101) {
+            posisiLayar = 1;
+        } else if(key == 27) {
+            break;
+        }
+    }
 
     getch();
     closegraph();
