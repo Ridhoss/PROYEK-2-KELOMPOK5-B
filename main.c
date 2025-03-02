@@ -16,10 +16,10 @@ int main() {
     cleardevice();
 
     // arena
-    Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "BLACK");
+    Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "WHITE");
 
     // ular
-    Kotak(20, 60, 40, 80, "WHITE");
+    // Kotak(20, 60, 40, 80, "WHITE");
 
     getch();
     closegraph();
