@@ -1,7 +1,8 @@
-#include "../header/mainhead.h"
 #include <graphics.h>
+#include <conio.h>
+#include <string.h>
 
-// function warna
+// Fungsi untuk mengonversi warna dari string ke nilai integer
 int AmbilWarna(const char *color) {
     if (strcmp(color, "BLACK") == 0) return BLACK;
     if (strcmp(color, "BLUE") == 0) return BLUE;
@@ -23,14 +24,34 @@ int AmbilWarna(const char *color) {
     return WHITE;
 }
 
-// procedure membuat kotak
+// Fungsi menggambar kotak berisi warna
 void Kotak(int x1, int y1, int x2, int y2, const char *warna) {
-
     int ambilwarna = AmbilWarna(warna);
-    setcolor(ambilwarna);
 
-    line(x1, y1, x2, y1); // Garis atas
-    line(x2, y1, x2, y2); // Garis kanan
-    line(x2, y2, x1, y2); // Garis bawah
-    line(x1, y2, x1, y1); // Garis kiri
+    setfillstyle(SOLID_FILL, ambilwarna);
+    bar(x1, y1, x2, y2);
+
+    setcolor(BLACK);
+    rectangle(x1, y1, x2, y2);
+}
+
+// Fungsi membuat tombol dengan teks
+void tombol(int x, int y, int panjang, int lebar, const char *warna, const char *teks) {
+    Kotak(x, y, x + panjang, y + lebar, warna);
+
+    // Buat salinan string karena fungsi WinBGI tidak menerima const char*
+    char teksCopy[50];
+    strcpy(teksCopy, teks);
+
+    // Menampilkan teks
+    setbkcolor(AmbilWarna(warna));
+    setcolor(WHITE);
+    settextstyle(DEFAULT_FONT, HORIZ_DIR, 2);
+
+    int textWidth = textwidth(teksCopy);
+    int textHeight = textheight(teksCopy);
+    int textX = x + (panjang - textWidth) / 2;
+    int textY = y + (lebar - textHeight) / 2;
+
+    outtextxy(textX, textY, teksCopy);
 }

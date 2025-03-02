@@ -8,17 +8,13 @@
 
 int main() {
     int gd = DETECT, gm;
-    initgraph(&gd, &gm, NULL); 
+    initgraph(&gd, &gm, (char*)"");
 
-    // batas tampilan
-    Kotak(10, 10, SCREEN_WIDTH - 10, SCREEN_HEIGHT - 10, "WHITE");
+    setbkcolor(CYAN);
+    cleardevice();
 
-    // arena
-    Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "WHITE");
-
-    // ular
-    Kotak(20, 60, 40, 80, "GREEN");
-
+    tombol(150, 150, 150, 50, "RED", "Klik Saya");
+    
     getch();
     closegraph();
     return 0;
