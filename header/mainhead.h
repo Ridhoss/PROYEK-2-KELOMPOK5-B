@@ -4,6 +4,8 @@
 
 typedef const char* CSTR;
 typedef enum { Center, Random } typePenempatanTulisan;
+typedef struct {int x, y;} Segment;
+typedef enum { UP, DOWN, LEFT, RIGHT } Direction;
 
 // header mengambil warna
 int AmbilWarna(CSTR color);
@@ -17,5 +19,17 @@ void tombol(int x, int y, int panjang, int lebar, CSTR warna, CSTR teks, int uku
 void GenerateRandomPosition(int *x, int *y);
 //header membuat makanan
 void Makanan(int x, int y);
+// Inisialisasi posisi awal ular
+void InitUlar();
+// Menggerakkan ular berdasarkan input
+void GerakUlar();
+// Mengecek apakah ular bertabrakan dengan dinding/tubuhnya sendiri
+void CekTabrakan();
+// Mengecek apakah ular memakan makanan
+void CekMakanMakanan();
+// Menggambar ulang ular di layar
+void GambarUlar();
+// Loop utama game
+void LoopGame();
 
 #endif   
