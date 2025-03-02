@@ -2,6 +2,8 @@
 #include <conio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <direct.h>
+#include <time.h>
 #include "../header/mainhead.h"
 
 // Fungsi untuk mengonversi warna dari string ke nilai integer
@@ -70,4 +72,25 @@ void tombol(int x, int y, int panjang, int lebar, CSTR warna, CSTR teks, int uku
     Kotak(x, y, x + panjang, y + lebar, warna);
     setbkcolor(AmbilWarna(warna));
     tulisan(x, y, panjang, lebar, "WHITE", teks, ukuranTeks, Center);
+}
+
+// Fungsi Stopwatch
+void stopwatch() {
+    int start_time = time(NULL);
+    char time_str[10];
+
+    while (!kbhit()) {
+        int elapsed_time = time(NULL) - start_time;
+        int minutes = elapsed_time / 60;
+        int seconds = elapsed_time % 60;
+        
+        sprintf(time_str, "%02d:%02d", minutes, seconds);
+        setcolor(WHITE);
+        settextstyle(SANS_SERIF_FONT, HORIZ_DIR, 2);
+        outtextxy(10, 10, time_str);
+        
+        delay(1000);
+        setfillstyle(SOLID_FILL, BLACK);
+        bar(10, 10, 100, 30);
+    }
 }

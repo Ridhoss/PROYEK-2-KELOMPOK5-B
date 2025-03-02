@@ -2,6 +2,8 @@
 #include <conio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
+#include <direct.h>
 #include "header/mainhead.h"
 
 #define SCREEN_WIDTH 640
@@ -21,11 +23,11 @@ int main() {
     // ular
     Kotak(20, 60, 40, 80, "GREEN");
 
-    getch();
-    closegraph();
-    return 0;
+    //stopwatch
+     stopwatch();
 
     getch();
     closegraph();
     return 0;
+
 }
