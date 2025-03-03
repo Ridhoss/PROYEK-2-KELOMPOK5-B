@@ -41,6 +41,10 @@ void CekTabrakan();
 void CekMakanMakanan();
 //header Menggambar ulang ular di layar
 void GambarUlar();
+//header stopwatch
+void stopwatch();
+//header memulai stopwatch
+void startStopwatch();
 //header Loop utama game
 void LoopGame();
 

@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include "../header/mainhead.h"
 
 #define SCREEN_WIDTH 640
@@ -11,6 +12,8 @@ Segment ular[MAX_LENGTH];
 int panjangUlar = 3;
 Direction arah = RIGHT;
 int score = 0;
+time_t start_time;
+int elapsed_time = 0;
 
 // Fungsi untuk mengonversi warna dari string ke nilai integer
 int AmbilWarna(CSTR color) 
@@ -153,11 +156,33 @@ void GambarUlar() {
         Kotak(ular[i].x, ular[i].y, ular[i].x + CELL_SIZE, ular[i].y + CELL_SIZE, "GREEN");
     }
 }
+//stopwatch
+void Stopwatch() {
+    elapsed_time = time(NULL) - start_time;
+    int minutes = elapsed_time / 60;
+    int seconds = elapsed_time % 60;
 
+    char time_str[10];
+    sprintf(time_str, "%02d:%02d", minutes, seconds);
+    
+    setcolor(WHITE);
+    settextstyle(SANS_SERIF_FONT, HORIZ_DIR, 2);
+
+    int text_width = textwidth(time_str);
+    int x_center = (SCREEN_WIDTH / 2) - (text_width / 2); // Tengah atas
+
+    outtextxy(x_center, 10, time_str);
+}
+
+//Fungsi untuk memulai stopwatch
+void startStopwatch() {
+    start_time = time(NULL);
+}
 //FUngsi Loop utama game
 void LoopGame() {
     int makananX, makananY;
     GenerateRandomPosition(&makananX, &makananY);
+    startStopwatch();
 
     while (1) {
         if (kbhit()) { // Cek jika ada input keyboard
@@ -175,8 +200,9 @@ void LoopGame() {
         CekTabrakan(); // Cek tabrakan
         CekMakanMakanan(&makananX, &makananY); // Cek apakah ular makan makanan
         GambarUlar(); // Gambar ulang ular
-        TampilkanSkor();
-        
+        TampilkanSkor(); // menampilkan skor
+        Stopwatch();
+
         delay(100); // Beri jeda agar pergerakan lebih halus
     }
 }
