@@ -195,13 +195,14 @@ void LoopGame() {
 
         cleardevice(); // Bersihkan layar
         Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "BLACK"); // Gambar arena
+        Stopwatch(); // stopwatch
         Makanan(makananX, makananY); // Gambar makanan
         GerakUlar(); // Perbarui posisi ular
         CekTabrakan(); // Cek tabrakan
         CekMakanMakanan(&makananX, &makananY); // Cek apakah ular makan makanan
         GambarUlar(); // Gambar ulang ular
         TampilkanSkor(); // menampilkan skor
-        Stopwatch();
+        
 
         delay(100); // Beri jeda agar pergerakan lebih halus
     }
