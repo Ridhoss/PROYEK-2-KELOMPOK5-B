@@ -29,6 +29,8 @@ void tombol(int x, int y, int panjang, int lebar, CSTR warna, CSTR teks, int uku
 void GenerateRandomPosition(int *x, int *y);
 //header membuat makanan
 void Makanan(int x, int y);
+//header skor
+void TampilkanSkor();
 //header Inisialisasi posisi awal ular
 void InitUlar();
 //header Menggerakkan ular berdasarkan input

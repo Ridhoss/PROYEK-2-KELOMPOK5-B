@@ -10,6 +10,7 @@
 Segment ular[MAX_LENGTH];
 int panjangUlar = 3;
 Direction arah = RIGHT;
+int score = 0;
 
 // Fungsi untuk mengonversi warna dari string ke nilai integer
 int AmbilWarna(CSTR color) 
@@ -90,6 +91,13 @@ void Makanan(int x, int y) {
     Kotak(x, y, x + 20, y + 20, "RED"); // Menggambar makanan dalam bentuk kotak merah
 }
 
+//Fungsi Score
+void TampilkanSkor() {
+    char scoreText[20];
+    sprintf(scoreText, "Score: %d", score);
+    tulisan(30, 20, 100, 30, "WHITE", scoreText, 2, Center);
+} 
+
 //Fungsi Inisialisasi posisi awal ular
 void InitUlar() {
     int startX = SCREEN_WIDTH / 2;
@@ -134,6 +142,7 @@ void CekTabrakan() {
 void CekMakanMakanan(int *makananX, int *makananY) {
     if (ular[0].x == *makananX && ular[0].y == *makananY) {
         panjangUlar++; // Tambah panjang ular
+        score++; //menambah skor 
         GenerateRandomPosition(makananX, makananY); // Munculkan makanan baru
     }
 }
@@ -166,7 +175,8 @@ void LoopGame() {
         CekTabrakan(); // Cek tabrakan
         CekMakanMakanan(&makananX, &makananY); // Cek apakah ular makan makanan
         GambarUlar(); // Gambar ulang ular
-
+        TampilkanSkor();
+        
         delay(100); // Beri jeda agar pergerakan lebih halus
     }
 }
