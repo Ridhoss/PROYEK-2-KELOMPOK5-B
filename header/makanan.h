@@ -1,5 +1,5 @@
-#ifndef PAGES_H
-#define PAGES_H
+#ifndef MAKANAN_H
+#define MAKANAN_H
 #include <graphics.h>
 
 #define SCREEN_WIDTH 640
@@ -7,7 +7,8 @@
 #define MAX_LENGTH 100
 #define CELL_SIZE 20
 
-void tampilanAwal();
-void tampilanArena();
+void GenerateRandomPosition(int *x, int *y);
+
+void Makanan(int x, int y);
 
 #endif   

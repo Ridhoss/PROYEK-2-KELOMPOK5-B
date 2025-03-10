@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include "header/mainhead.h"
 #include "header/pages.h"
+#include "header/makanan.h"
+#include "header/ular.h"
+#include "header/stopwatch.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480

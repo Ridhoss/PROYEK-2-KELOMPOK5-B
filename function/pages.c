@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include "../header/pages.h"
 #include "../header/mainhead.h"
+#include "../header/makanan.h"
+#include "../header/ular.h"
+#include "../header/stopwatch.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
@@ -31,9 +34,15 @@ void tampilanArena() {
 
     tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
 
-    char score[100] = "Score: 0";
-    tulisan(20, 20, 0, 0, "WHITE", score, 2, Random);
+    // Inisialisasi ular
+    InitUlar();
 
-    char stopwatch[100] = "00:20:00";
-    tulisan(0, 30, SCREEN_WIDTH, 0, "WHITE", stopwatch, 2, Center);
+    // Mulai loop game
+    LoopGame();
+
+    // char score[100] = "Score: 0";
+    // tulisan(20, 20, 0, 0, "WHITE", score, 2, Random);
+
+    // char stopwatch[100] = "00:20:00";
+    // tulisan(0, 30, SCREEN_WIDTH, 0, "WHITE", stopwatch, 2, Center);
 }

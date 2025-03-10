@@ -3,6 +3,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include "../header/mainhead.h"
+#include "../header/pages.h"
+#include "../header/makanan.h"
+#include "../header/ular.h"
+#include "../header/stopwatch.h"
 
 // Fungsi untuk mengonversi warna dari string ke nilai integer
 int AmbilWarna(CSTR color) 
@@ -70,4 +74,41 @@ void tombol(int x, int y, int panjang, int lebar, CSTR warna, CSTR teks, int uku
     Kotak(x, y, x + panjang, y + lebar, warna);
     setbkcolor(AmbilWarna(warna));
     tulisan(x, y, panjang, lebar, "WHITE", teks, ukuranTeks, Center);
+}
+
+//Fungsi Loop utama game
+void LoopGame() {
+    int makananX, makananY;
+    GenerateRandomPosition(&makananX, &makananY);
+    startStopwatch();
+
+    while (1) {
+        if (kbhit()) { // Cek jika ada input keyboard
+            char key = getch();
+            if (key == 72 && arah != DOWN) arah = UP;    // Panah atas
+            if (key == 80 && arah != UP) arah = DOWN;    // Panah bawah
+            if (key == 75 && arah != RIGHT) arah = LEFT; // Panah kiri
+            if (key == 77 && arah != LEFT) arah = RIGHT; // Panah kanan
+        }
+
+        setbkcolor(CYAN);
+        cleardevice(); // Bersihkan layar
+
+        Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "WHITE");
+
+        tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
+        setbkcolor(CYAN);
+
+        Stopwatch(); // stopwatch
+        Makanan(makananX, makananY); // Gambar makanan
+
+        GerakUlar(); // Perbarui posisi ular
+        CekTabrakan(); // Cek tabrakan
+        CekMakanMakanan(&makananX, &makananY); // Cek apakah ular makan makanan
+
+        GambarUlar(); // Gambar ulang ular
+        TampilkanSkor(); // menampilkan skor
+
+        delay(100); // Beri jeda agar pergerakan lebih halus
+    }
 }
