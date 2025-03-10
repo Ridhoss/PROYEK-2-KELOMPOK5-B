@@ -2,7 +2,6 @@
 #include <conio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <time.h>
 #include "header/mainhead.h"
 #include "header/pages.h"
 #include "header/makanan.h"
@@ -13,10 +12,8 @@
 #define SCREEN_HEIGHT 480
 
 int main() {
-
     int gd = DETECT, gm;
     initgraph(&gd, &gm, NULL);
-    srand(time(NULL));
 
     int posisiLayar = 0;
 
