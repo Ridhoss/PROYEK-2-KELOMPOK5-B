@@ -9,5 +9,6 @@
 
 void tampilanAwal();
 void tampilanArena();
+void tampilanPlay();
 
 #endif   

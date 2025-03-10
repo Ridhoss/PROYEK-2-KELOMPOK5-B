@@ -24,6 +24,48 @@ void tampilanAwal() {
 
     tombol(posisiX, posisiY, tombolLebar, tombolTinggi, "DARKGRAY", "START", 3);
     tombol(posisiX, posisiY + 80, tombolLebar, tombolTinggi, "DARKGRAY", "EXIT", 3);
+
+    //klik start dan quit!
+    while (1) {
+        int x, y;
+        if (ismouseclick(WM_LBUTTONDOWN)) {
+            getmouseclick(WM_LBUTTONDOWN, x, y);
+            
+            if (x >= posisiX && x <= posisiX + tombolLebar && y >= posisiY && y <= posisiY + tombolTinggi) {
+                tampilanPlay();
+                break;
+            }
+            if (x >= posisiX && x <= posisiX + tombolLebar && y >= posisiY + 80 && y <= posisiY + 80 + tombolTinggi) {
+                exit(0);
+            }
+        }
+    }
+}
+
+void tampilanPlay() {
+    setbkcolor(LIGHTBLUE);
+    cleardevice();
+
+    char judul[] = "GET READY!";
+    tulisan(0, 100, SCREEN_WIDTH, 0, "WHITE", judul, 5, Center);
+
+    int tombolLebar = 150, tombolTinggi = 50;
+    int posisiX = (SCREEN_WIDTH - tombolLebar) / 2;
+    int posisiY = 200;
+
+    tombol(posisiX, posisiY, tombolLebar, tombolTinggi, "GREEN", "PLAY", 3);
+
+    while (1) {
+        int x, y;
+        if (ismouseclick(WM_LBUTTONDOWN)) {
+            getmouseclick(WM_LBUTTONDOWN, x, y);
+            
+            if (x >= posisiX && x <= posisiX + tombolLebar && y >= posisiY && y <= posisiY + tombolTinggi) {
+                tampilanArena(); // Masuk ke arena
+                break;
+            }
+        }
+    }
 }
 
 void tampilanArena() {
