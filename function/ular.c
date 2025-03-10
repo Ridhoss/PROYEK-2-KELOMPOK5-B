@@ -57,9 +57,13 @@ void CekTabrakan() {
 //FUngsi Mengecek apakah ular makan makanan
 void CekMakanMakanan(int *makananX, int *makananY) {
     if (ular[0].x == *makananX && ular[0].y == *makananY) {
+        if (panjangUlar < MAX_LENGTH){
         panjangUlar++; // Tambah panjang ular
         score++; //menambah skor 
         GenerateRandomPosition(makananX, makananY); // Munculkan makanan baru
+    } else {
+        exit(0);
+    }
     }
 }
 
