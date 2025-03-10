@@ -2,9 +2,10 @@
 #include <conio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include "../header/mainhead.h"
-#include "../header/pages.h"
 #include "../header/makanan.h"
+#include "../header/pages.h"
 #include "../header/ular.h"
 #include "../header/stopwatch.h"
 
@@ -76,39 +77,85 @@ void tombol(int x, int y, int panjang, int lebar, CSTR warna, CSTR teks, int uku
     tulisan(x, y, panjang, lebar, "WHITE", teks, ukuranTeks, Center);
 }
 
-//Fungsi Loop utama game
-void LoopGame() {
-    int makananX, makananY;
-    GenerateRandomPosition(&makananX, &makananY);
-    startStopwatch();
 
+
+void LoopGame() 
+{
+    int activePage = 0; // Buffer untuk double buffering
+    double lastUpdate = clock(); // Waktu terakhir frame diperbarui
+    double lastMoveTime = clock(); // Waktu terakhir ular bergerak
+    double frameDelay = 1000.0 / 60.0; // 60 FPS
+    double snakeSpeed = 150.0; // Kecepatan ular dalam ms (lebih besar = lebih lambat)
+
+    MakananStruct makanan;
+    GenerateRandomPosition(&makanan.x, &makanan.y);
+    makanan.type = GeneratemakananType();
+    makanan.spawnTime = clock(); // Simpan waktu makanan muncul
+
+    startStopwatch(); // Mulai stopwatch
+
+    // **Loop utama game**
     while (1) {
-        if (kbhit()) { // Cek jika ada input keyboard
+        double currentTime = clock();
+
+        // **Input pemain**
+        if (kbhit()) {
             char key = getch();
-            if (key == 72 && arah != DOWN) arah = UP;    // Panah atas
-            if (key == 80 && arah != UP) arah = DOWN;    // Panah bawah
-            if (key == 75 && arah != RIGHT) arah = LEFT; // Panah kiri
-            if (key == 77 && arah != LEFT) arah = RIGHT; // Panah kanan
+            if (key == 72 && arah != DOWN) arah = UP;    
+            if (key == 80 && arah != UP) arah = DOWN;    
+            if (key == 75 && arah != RIGHT) arah = LEFT; 
+            if (key == 77 && arah != LEFT) arah = RIGHT; 
         }
 
-        setbkcolor(CYAN);
-        cleardevice(); // Bersihkan layar
+        // **Batasi FPS (Frame Per Second)**
+        if (currentTime - lastUpdate < frameDelay) continue;
+        lastUpdate = currentTime;
 
+        // **Gerakkan ular berdasarkan kecepatan**
+        if (currentTime - lastMoveTime >= snakeSpeed) {
+            GerakUlar();
+            lastMoveTime = currentTime;
+        }
+
+        // **Hapus makanan poison setelah 5 detik**
+        if (makanan.type == POISON && (currentTime - makanan.spawnTime) / CLOCKS_PER_SEC > 5) {
+            printf("Makanan poison menghilang!\n");
+            GenerateRandomPosition(&makanan.x, &makanan.y);
+            makanan.type = GeneratemakananType();
+            makanan.spawnTime = clock(); // Reset waktu spawn
+        }
+
+        // **Double Buffering**
+        activePage = 1 - activePage;
+        setactivepage(activePage);
+        cleardevice(); // Bersihkan layar sebelum menggambar ulang elemen game
+
+        // **Gambar elemen game**
         Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "WHITE");
-
         tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
         setbkcolor(CYAN);
 
-        Stopwatch(); // stopwatch
-        Makanan(makananX, makananY); // Gambar makanan
+        // **Gambar elemen game lainnya**
+        Tampilkanscore();
+        Stopwatch();
+        CekTabrakan();
+        Makanan(makanan);
+        GambarUlar();
 
-        GerakUlar(); // Perbarui posisi ular
-        CekTabrakan(); // Cek tabrakan
-        CekMakanMakanan(&makananX, &makananY); // Cek apakah ular makan makanan
+        // **Cek jika ular makan makanan**
+        if (CekMakanMakanan(&makanan)) {
+            GenerateRandomPosition(&makanan.x, &makanan.y);  
+            makanan.type = GeneratemakananType();
+            makanan.spawnTime = clock(); // Reset waktu spawn makanan
 
-        GambarUlar(); // Gambar ulang ular
-        TampilkanSkor(); // menampilkan skor
+            if (makanan.type == SPECIAL) score += 5;
+            else if (makanan.type == POISON) score -= 3;
+            else score += 1;
 
-        delay(100); // Beri jeda agar pergerakan lebih halus
+            printf("Score sekarang: %d\n", score);
+        }
+
+        // **Tampilkan buffer aktif**
+        setvisualpage(activePage);
     }
 }

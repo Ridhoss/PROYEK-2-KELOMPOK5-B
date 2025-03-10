@@ -2,6 +2,8 @@
 #include <conio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include "../header/makanan.h"
 #include "../header/ular.h"
 #include "../header/mainhead.h"
 #include "../header/pages.h"
@@ -55,12 +57,18 @@ void CekTabrakan() {
 }
 
 //FUngsi Mengecek apakah ular makan makanan
-void CekMakanMakanan(int *makananX, int *makananY) {
-    if (ular[0].x == *makananX && ular[0].y == *makananY) {
-        panjangUlar++; // Tambah panjang ular
-        score++; //menambah skor 
-        GenerateRandomPosition(makananX, makananY); // Munculkan makanan baru
+bool CekMakanMakanan(MakananStruct *makanan) {
+    if (ular[0].x == makanan->x && ular[0].y == makanan->y) {
+        panjangUlar++;
+        if (makanan->type == SPECIAL) score += 5;
+        else if (makanan->type == POISON) score -= 3;
+        else score += 1;
+        
+        GenerateRandomPosition(&makanan->x, &makanan->y);
+        makanan->type = GeneratemakananType();
+        return true;
     }
+    return false;
 }
 
 //Fungsi Menggambar ulang ular di layar

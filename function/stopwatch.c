@@ -9,16 +9,28 @@
 #include "../header/makanan.h"
 #include "../header/ular.h"
 
+extern int score;
 int score = 0;
 time_t start_time;
 int elapsed_time = 0;
 
 //Fungsi Score
-void TampilkanSkor() {
+void Tampilkanscore() {
+    // Konversi score ke string
     char scoreText[20];
     sprintf(scoreText, "Score: %d", score);
-    tulisan(30, 20, 100, 30, "WHITE", scoreText, 2, Center);
-} 
+
+    // Set warna teks dan latar belakang agar terlihat jelas
+    setcolor(WHITE);
+    setbkcolor(CYAN);
+    settextstyle(SANS_SERIF_FONT, HORIZ_DIR, 2);
+
+    // Hapus score lama dengan menggambar ulang latar belakang
+    bar(20, 10, 150, 40); // Kotak hitam untuk membersihkan teks lama
+
+    // Tampilkan teks score di layar
+    outtextxy(30, 20, scoreText);
+}
 
 //stopwatch
 void Stopwatch() {

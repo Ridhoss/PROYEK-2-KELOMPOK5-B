@@ -10,6 +10,8 @@ typedef enum { Center, Random } typePenempatanTulisan;
 #define MAX_LENGTH 100
 #define CELL_SIZE 20
 
+extern int score;
+
 // header mengambil warna
 int AmbilWarna(CSTR color);
 // header membuat tulisan

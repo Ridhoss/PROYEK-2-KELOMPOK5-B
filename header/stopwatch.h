@@ -7,7 +7,7 @@
 #define MAX_LENGTH 100
 #define CELL_SIZE 20
 
-void TampilkanSkor();
+void Tampilkanscore();
 
 void Stopwatch();
 
