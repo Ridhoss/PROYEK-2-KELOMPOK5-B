@@ -2,18 +2,11 @@
 #include <conio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <time.h>
 #include "../header/mainhead.h"
-
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
-
-Segment ular[MAX_LENGTH];
-int panjangUlar = 3;
-Direction arah = RIGHT;
-int score = 0;
-time_t start_time;
-int elapsed_time = 0;
+#include "../header/pages.h"
+#include "../header/makanan.h"
+#include "../header/ular.h"
+#include "../header/stopwatch.h"
 
 // Fungsi untuk mengonversi warna dari string ke nilai integer
 int AmbilWarna(CSTR color) 
@@ -83,102 +76,7 @@ void tombol(int x, int y, int panjang, int lebar, CSTR warna, CSTR teks, int uku
     tulisan(x, y, panjang, lebar, "WHITE", teks, ukuranTeks, Center);
 }
 
-// Fungsi membuat posisi acak  
-void GenerateRandomPosition(int *x, int *y) {
-    *x = 20 + (rand() % ((SCREEN_WIDTH - 40) / 20)) * 20; // membuat posisi acak pada sumbu x
-    *y = 60 + (rand() % ((SCREEN_HEIGHT - 80) / 20)) * 20; // membuat posisi acak pada sumbu y
-}
-
-//Fungsi membuat makanan
-void Makanan(int x, int y) {
-    Kotak(x, y, x + 20, y + 20, "RED"); // Menggambar makanan dalam bentuk kotak merah
-}
-
-//Fungsi Score
-void TampilkanSkor() {
-    char scoreText[20];
-    sprintf(scoreText, "Score: %d", score);
-    tulisan(30, 20, 100, 30, "WHITE", scoreText, 2, Center);
-} 
-
-//Fungsi Inisialisasi posisi awal ular
-void InitUlar() {
-    int startX = SCREEN_WIDTH / 2;
-    int startY = SCREEN_HEIGHT / 2;
-
-    for (int i = 0; i < panjangUlar; i++) {
-        ular[i].x = startX - (i * CELL_SIZE);
-        ular[i].y = startY;
-    }
-}
-
-//Fungsi Menggerakkan ular
-void GerakUlar() {
-    // Pindahkan badan ular mengikuti kepala
-    for (int i = panjangUlar - 1; i > 0; i--) {
-        ular[i] = ular[i - 1];
-    }
-
-    // Gerakkan kepala ular berdasarkan arah
-    if (arah == UP) ular[0].y -= CELL_SIZE;
-    if (arah == DOWN) ular[0].y += CELL_SIZE;
-    if (arah == LEFT) ular[0].x -= CELL_SIZE;
-    if (arah == RIGHT) ular[0].x += CELL_SIZE;
-}
-
-//Fungsi Mengecek tabrakan dengan dinding atau tubuh sendiri
-void CekTabrakan() {
-    // Cek tabrakan dengan dinding
-    if (ular[0].x < 20 || ular[0].x >= SCREEN_WIDTH - 20 ||
-        ular[0].y < 60 || ular[0].y >= SCREEN_HEIGHT - 20) {
-        exit(0);
-    }
-    // Cek tabrakan dengan tubuh sendiri
-    for (int i = 1; i < panjangUlar; i++) {
-        if (ular[0].x == ular[i].x && ular[0].y == ular[i].y) {
-            exit(0);
-        }
-    }
-}
-
-//FUngsi Mengecek apakah ular makan makanan
-void CekMakanMakanan(int *makananX, int *makananY) {
-    if (ular[0].x == *makananX && ular[0].y == *makananY) {
-        panjangUlar++; // Tambah panjang ular
-        score++; //menambah skor 
-        GenerateRandomPosition(makananX, makananY); // Munculkan makanan baru
-    }
-}
-
-//Fungsi Menggambar ulang ular di layar
-void GambarUlar() {
-    for (int i = 0; i < panjangUlar; i++) {
-        Kotak(ular[i].x, ular[i].y, ular[i].x + CELL_SIZE, ular[i].y + CELL_SIZE, "GREEN");
-    }
-}
-//stopwatch
-void Stopwatch() {
-    elapsed_time = time(NULL) - start_time;
-    int minutes = elapsed_time / 60;
-    int seconds = elapsed_time % 60;
-
-    char time_str[10];
-    sprintf(time_str, "%02d:%02d", minutes, seconds);
-    
-    setcolor(WHITE);
-    settextstyle(SANS_SERIF_FONT, HORIZ_DIR, 2);
-
-    int text_width = textwidth(time_str);
-    int x_center = (SCREEN_WIDTH / 2) - (text_width / 2); // Tengah atas
-
-    outtextxy(x_center, 10, time_str);
-}
-
-//Fungsi untuk memulai stopwatch
-void startStopwatch() {
-    start_time = time(NULL);
-}
-//FUngsi Loop utama game
+//Fungsi Loop utama game
 void LoopGame() {
     int makananX, makananY;
     GenerateRandomPosition(&makananX, &makananY);
@@ -193,16 +91,23 @@ void LoopGame() {
             if (key == 77 && arah != LEFT) arah = RIGHT; // Panah kanan
         }
 
+        setbkcolor(CYAN);
         cleardevice(); // Bersihkan layar
-        Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "BLACK"); // Gambar arena
+
+        Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "WHITE");
+
+        tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
+        setbkcolor(CYAN);
+
         Stopwatch(); // stopwatch
         Makanan(makananX, makananY); // Gambar makanan
+
         GerakUlar(); // Perbarui posisi ular
         CekTabrakan(); // Cek tabrakan
         CekMakanMakanan(&makananX, &makananY); // Cek apakah ular makan makanan
+
         GambarUlar(); // Gambar ulang ular
         TampilkanSkor(); // menampilkan skor
-        
 
         delay(100); // Beri jeda agar pergerakan lebih halus
     }
