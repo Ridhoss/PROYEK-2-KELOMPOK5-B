@@ -2,8 +2,8 @@
 #include <conio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "../header/pages.h"
 #include "../header/mainhead.h"
+#include "../header/pages.h"
 #include "../header/makanan.h"
 #include "../header/ular.h"
 #include "../header/stopwatch.h"

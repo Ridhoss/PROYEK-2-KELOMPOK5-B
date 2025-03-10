@@ -8,6 +8,8 @@
 #include "../header/ular.h"
 #include "../header/stopwatch.h"
 
+bool paused = false;
+
 // Fungsi untuk mengonversi warna dari string ke nilai integer
 int AmbilWarna(CSTR color) 
 {
@@ -85,30 +87,62 @@ void LoopGame() {
     while (1) {
         if (kbhit()) { // Cek jika ada input keyboard
             char key = getch();
+            
+            // Cek apakah tombol yang ditekan adalah tombol arah atau pause
             if (key == 72 && arah != DOWN) arah = UP;    // Panah atas
-            if (key == 80 && arah != UP) arah = DOWN;    // Panah bawah
-            if (key == 75 && arah != RIGHT) arah = LEFT; // Panah kiri
-            if (key == 77 && arah != LEFT) arah = RIGHT; // Panah kanan
+            else if (key == 80 && arah != UP) arah = DOWN;    // Panah bawah
+            else if (key == 75 && arah != RIGHT) arah = LEFT; // Panah kiri
+            else if (key == 77 && arah != LEFT) arah = RIGHT; // Panah kanan
+            else if (key == 'p' || key == 'P') { 
+                paused = !paused; // Toggle pause
+                while (kbhit()) getch(); // Buang input yang tersisa di buffer
+            }
         }
 
-        setbkcolor(CYAN);
-        cleardevice(); // Bersihkan layar
+        if (!paused) { 
+            setbkcolor(CYAN);
+            cleardevice(); 
 
-        Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "WHITE");
+            Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "WHITE");
+            tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
+            setbkcolor(CYAN);
 
-        tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
-        setbkcolor(CYAN);
+            Stopwatch();
+            Makanan(makananX, makananY); 
 
-        Stopwatch(); // stopwatch
-        Makanan(makananX, makananY); // Gambar makanan
+            GerakUlar();
+            CekTabrakan(); 
+            CekMakanMakanan(&makananX, &makananY); 
 
-        GerakUlar(); // Perbarui posisi ular
-        CekTabrakan(); // Cek tabrakan
-        CekMakanMakanan(&makananX, &makananY); // Cek apakah ular makan makanan
+            GambarUlar(); 
+            TampilkanSkor(); 
+        } else {
+            
+            // posisi popup menu
+            int popupX = SCREEN_WIDTH / 4;
+            int popupY = SCREEN_HEIGHT / 4;
+            int popupWidth = SCREEN_WIDTH / 2;
+            int popupHeight = SCREEN_HEIGHT / 2;
 
-        GambarUlar(); // Gambar ulang ular
-        TampilkanSkor(); // menampilkan skor
+            Kotak(popupX, popupY, popupX + popupWidth, popupY + popupHeight, "CYAN");
+            tulisan(popupX + popupWidth / 2, popupY + 50, 0, 0, "GREY", "GAME PAUSED", 5, Center);
+            tombol(popupX + (popupWidth / 2) - 50, popupY + popupHeight / 2 - 20, 100, 40, "GREEN", "RESUME", 2);
+            tombol(popupX + (popupWidth / 2) - 50, popupY + popupHeight / 2 + 30, 100, 40, "RED", "EXIT", 2);
+
+
+            while (paused) {
+                if (kbhit()) {
+                    char key = getch();
+                    if (key == 'r' || key == 'R') {
+                        paused = false;
+                    } else if (key == 't' || key == 'T') {
+                        exit(0);
+                    }
+                }
+            }
+        }
 
         delay(100); // Beri jeda agar pergerakan lebih halus
     }
 }
+
