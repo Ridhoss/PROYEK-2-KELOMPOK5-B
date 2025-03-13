@@ -8,6 +8,8 @@
 #include "../header/ular.h"
 #include "../header/stopwatch.h"
 
+bool paused = false;
+
 // Fungsi untuk mengonversi warna dari string ke nilai integer
 int AmbilWarna(CSTR color) 
 {
@@ -85,30 +87,78 @@ void LoopGame() {
     while (1) {
         if (kbhit()) { // Cek jika ada input keyboard
             char key = getch();
+            
+            // Cek apakah tombol yang ditekan adalah tombol arah atau pause
             if (key == 72 && arah != DOWN) arah = UP;    // Panah atas
-            if (key == 80 && arah != UP) arah = DOWN;    // Panah bawah
-            if (key == 75 && arah != RIGHT) arah = LEFT; // Panah kiri
-            if (key == 77 && arah != LEFT) arah = RIGHT; // Panah kanan
+            else if (key == 80 && arah != UP) arah = DOWN;    // Panah bawah
+            else if (key == 75 && arah != RIGHT) arah = LEFT; // Panah kiri
+            else if (key == 77 && arah != LEFT) arah = RIGHT; // Panah kanan
         }
+        //Mouse Klik Paused
+         if (ismouseclick(WM_LBUTTONDOWN)) {
+            int x, y;
+            getmouseclick(WM_LBUTTONDOWN, x, y);
 
-        setbkcolor(CYAN);
-        cleardevice(); // Bersihkan layar
+            // Jika Klik PAUSE
+            if (!paused && x >= 520 && x <= 620 && y >= 15 && y <= 45) {
+                paused = true;
+            }
+            // Jika Klik PAUSE, cek tombol RESUME atau EXIT
+            if (paused) {
+                int popupX = SCREEN_WIDTH / 4;
+                int popupY = SCREEN_HEIGHT / 4;
+                int popupWidth = SCREEN_WIDTH / 2;
+                int popupHeight = SCREEN_HEIGHT / 2;
 
-        Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "WHITE");
+                int resumeX = popupX + (popupWidth / 2) - 50;
+                int resumeY = popupY + popupHeight / 2 - 20;
+                int exitX = popupX + (popupWidth / 2) - 50;
+                int exitY = popupY + popupHeight / 2 + 30;
 
-        tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
-        setbkcolor(CYAN);
+                // Klik tombol RESUME
+                if (x >= resumeX && x <= resumeX + 100 && y >= resumeY && y <= resumeY + 40) {
+                    paused = false;
+                }
+                // Klik tombol EXIT (kembali ke menu utama)
+                else if (x >= exitX && x <= exitX + 100 && y >= exitY && y <= exitY + 40) {
+                    tampilanAwal(); 
+                    return; 
+                }
+            }
+        }
+        
+         // Jika game tidak dipause, jalankan game seperti biasa
+         if (!paused) {
+            setbkcolor(CYAN);
+            cleardevice(); 
 
-        Stopwatch(); // stopwatch
-        Makanan(makananX, makananY); // Gambar makanan
+            Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "WHITE");
+            tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
+            setbkcolor(CYAN);
 
-        GerakUlar(); // Perbarui posisi ular
-        CekTabrakan(); // Cek tabrakan
-        CekMakanMakanan(&makananX, &makananY); // Cek apakah ular makan makanan
+            Stopwatch();
+            Makanan(makananX, makananY); 
 
-        GambarUlar(); // Gambar ulang ular
-        TampilkanSkor(); // menampilkan skor
+            GerakUlar();
+            CekTabrakan(); 
+            CekMakanMakanan(&makananX, &makananY); 
+
+            GambarUlar(); 
+            TampilkanSkor(); 
+        } else {
+            int popupX = SCREEN_WIDTH / 4;
+            int popupY = SCREEN_HEIGHT / 4;
+            int popupWidth = SCREEN_WIDTH / 2;
+            int popupHeight = SCREEN_HEIGHT / 2;
+
+            Kotak(popupX, popupY, popupX + popupWidth, popupY + popupHeight, "CYAN");
+            setbkcolor(CYAN);  
+            tulisan(popupX + popupWidth / 2, popupY + 50, 0, 0, "GREY", "GAME PAUSED", 5, Center);
+            tombol(popupX + (popupWidth / 2) - 50, popupY + popupHeight / 2 - 20, 100, 40, "GREEN", "RESUME", 2);
+            tombol(popupX + (popupWidth / 2) - 50, popupY + popupHeight / 2 + 30, 100, 40, "RED", "EXIT", 2);
+        }
 
         delay(100); // Beri jeda agar pergerakan lebih halus
     }
 }
+
