@@ -13,3 +13,6 @@ APLIKASI ULAR MAKAN APEL HEHE
 // running aplikasi
 
 g++ main.c function/mainbody.c function/pages.c function/makanan.c function/stopwatch.c function/ular.c -o main.exe -I"C:\MinGW-w64\mingw64\include" -L"C:\MinGW-w64\mingw64\lib" -lbgi -lgdi32 -lcomdlg32 -luuid -loleaut32 -lole32
+
+Update Ridho :
+- Membuat fitur play and pause : modul LoopGame mainbody
