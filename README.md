@@ -16,3 +16,10 @@ g++ main.c function/mainbody.c function/pages.c function/makanan.c function/stop
 
 Update Ridho :
 - Membuat fitur play and pause : modul LoopGame mainbody
+- menambahkan modul ResetGame
+- menambahkan variabel global di mainhead
+- perbaikan di modul stopwatch
+
+Update Salma :
+- Mouse Click untuk Pause/Resume : function/mainbody.c(line 97)
+

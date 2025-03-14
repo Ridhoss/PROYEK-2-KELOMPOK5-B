@@ -5,6 +5,14 @@
 typedef const char* CSTR;
 typedef enum { Center, Random } typePenempatanTulisan;
 
+extern bool paused;
+extern int kepalaX;
+extern int kepalaY;
+extern int score;
+extern int makananX;
+extern int makananY;
+
+
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 #define MAX_LENGTH 100
@@ -20,5 +28,7 @@ void Kotak(int x1, int y1, int x2, int y2, CSTR warna);
 void tombol(int x, int y, int panjang, int lebar, CSTR warna, CSTR teks, int ukuranTeks);
 // header loop game
 void LoopGame();
+// header reset
+void ResetGame();
 
 #endif   
