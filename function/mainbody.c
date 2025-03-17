@@ -134,7 +134,7 @@ void LoopGame() {
                 }
                 // Klik tombol EXIT (kembali ke menu utama)
                 else if (x >= exitX && x <= exitX + 100 && y >= exitY && y <= exitY + 40) {
-                    ResetGame(); // Reset game sebelum kembali ke menu
+                    ResetGame();
                     tampilanAwal();
                     return;
                 }
