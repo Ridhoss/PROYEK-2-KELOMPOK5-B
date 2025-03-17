@@ -97,6 +97,11 @@ void LoopGame() {
             else if (key == 80 && arah != UP) arah = DOWN;    // Panah bawah
             else if (key == 75 && arah != RIGHT) arah = LEFT; // Panah kiri
             else if (key == 77 && arah != LEFT) arah = RIGHT; // Panah kanan
+            else if (key == 'p' || key == 'P') { 
+                paused = true; 
+                paused_time = time(NULL);
+                while (kbhit()) getch();
+            }
         }
         //Mouse Klik Paused
          if (ismouseclick(WM_LBUTTONDOWN)) {

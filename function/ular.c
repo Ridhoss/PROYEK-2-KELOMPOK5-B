@@ -45,7 +45,8 @@ void CekTabrakan() {
     // Cek tabrakan dengan dinding
     if (ular[0].x < 20 || ular[0].x >= SCREEN_WIDTH - 20 ||
         ular[0].y < 60 || ular[0].y >= SCREEN_HEIGHT - 20) {
-        exit(0);
+        tampilanAwal();
+        return;
     }
     // Cek tabrakan dengan tubuh sendiri
     for (int i = 1; i < panjangUlar; i++) {
