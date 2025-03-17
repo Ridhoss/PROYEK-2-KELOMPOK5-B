@@ -55,7 +55,7 @@ void CekTabrakan() {
     }
 }
 
-//FUngsi Mengecek apakah ular makan makanan
+//Fungsi Mengecek apakah ular makan makanan
 void CekMakanMakanan(int *makananX, int *makananY) {
     if (ular[0].x == *makananX && ular[0].y == *makananY) {
         if (panjangUlar < MAX_LENGTH){
@@ -70,7 +70,11 @@ void CekMakanMakanan(int *makananX, int *makananY) {
 
 //Fungsi Menggambar ulang ular di layar
 void GambarUlar() {
-    for (int i = 0; i < panjangUlar; i++) {
-        Kotak(ular[i].x, ular[i].y, ular[i].x + CELL_SIZE, ular[i].y + CELL_SIZE, "GREEN");
+    // Gambar kepala dengan warna merah
+    Kotak(ular[0].x, ular[0].y, ular[0].x + CELL_SIZE, ular[0].y + CELL_SIZE, "GREEN");
+
+    // Gambar badan dengan warna hijau
+    for (int i = 1; i < panjangUlar; i++) {
+        Kotak(ular[i].x, ular[i].y, ular[i].x + CELL_SIZE, ular[i].y + CELL_SIZE, "LIGHTGREEN");
     }
 }
