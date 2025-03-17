@@ -147,11 +147,7 @@ void LoopGame()
             GenerateRandomPosition(&makanan.x, &makanan.y);  
             makanan.type = GeneratemakananType();
             makanan.spawnTime = clock(); // Reset waktu spawn makanan
-
-            if (makanan.type == SPECIAL) score += 5;
-            else if (makanan.type == POISON) score -= 3;
-            else score += 1;
-
+            
             printf("Score sekarang: %d\n", score);
         }
 
