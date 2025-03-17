@@ -91,14 +91,16 @@ void LoopGame() {
     while (1) {
         if (kbhit()) { // Cek jika ada input keyboard
             char key = getch();
-            
-            // Cek apakah tombol yang ditekan adalah tombol arah atau pause
-            if (key == 72 && arah != DOWN) arah = UP;    // Panah atas
-            else if (key == 80 && arah != UP) arah = DOWN;    // Panah bawah
-            else if (key == 75 && arah != RIGHT) arah = LEFT; // Panah kiri
-            else if (key == 77 && arah != LEFT) arah = RIGHT; // Panah kanan
-            else if (key == 'p' || key == 'P') { 
-                paused = true; 
+        
+            if (key == 0 || key == 224) {
+                key = getch();
+                if (key == 72 && arah != DOWN) arah = UP;    // Panah atas
+                else if (key == 80 && arah != UP) arah = DOWN;    // Panah bawah
+                else if (key == 75 && arah != RIGHT) arah = LEFT; // Panah kiri
+                else if (key == 77 && arah != LEFT) arah = RIGHT; // Panah kanan
+            } 
+            else if (key == 'p' || key == 'P') {
+                paused = true;
                 paused_time = time(NULL);
                 while (kbhit()) getch();
             }
