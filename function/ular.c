@@ -51,7 +51,8 @@ void CekTabrakan() {
     // Cek tabrakan dengan tubuh sendiri
     for (int i = 1; i < panjangUlar; i++) {
         if (ular[0].x == ular[i].x && ular[0].y == ular[i].y) {
-            exit(0);
+        tampilanAwal();
+        return;
         }
     }
 }
