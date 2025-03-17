@@ -67,7 +67,7 @@ void tampilanPlay() {
                 // Tambahkan ini supaya stopwatch mulai dari awal
                 stopwatch_running = true; 
                 startStopwatch();
-
+                gameOver = false;
                 tampilanArena();
                 break;
             }

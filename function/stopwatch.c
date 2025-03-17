@@ -16,11 +16,19 @@ int total_paused_duration = 0;
 bool stopwatch_running = false;
 
 //Fungsi Score
-void TampilkanSkor() {
+void Tampilkanscore() {
+    // Konversi score ke string
     char scoreText[20];
     sprintf(scoreText, "Score: %d", score);
-    tulisan(30, 20, 100, 30, "WHITE", scoreText, 2, Center);
-} 
+
+    // Set warna teks dan latar belakang agar terlihat jelas
+    setcolor(WHITE);
+    setbkcolor(CYAN);
+    settextstyle(SANS_SERIF_FONT, HORIZ_DIR, 2);
+
+    // Tampilkan teks score di layar
+    outtextxy(30, 20, scoreText);
+}
 
 //stopwatch
 void Stopwatch() {

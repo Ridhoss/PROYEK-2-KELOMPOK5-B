@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
+#include "../header/makanan.h"
 #include "../header/ular.h"
 #include "../header/mainhead.h"
 #include "../header/pages.h"
@@ -42,34 +44,36 @@ void GerakUlar() {
 
 //Fungsi Mengecek tabrakan dengan dinding atau tubuh sendiri
 void CekTabrakan() {
-    // Cek tabrakan dengan dinding
+    // tabrakan dengan dinding
     if (ular[0].x < 20 || ular[0].x >= SCREEN_WIDTH - 20 ||
         ular[0].y < 60 || ular[0].y >= SCREEN_HEIGHT - 20) {
+        gameOver = true;
         ResetGame();
         tampilanAwal();
-        return;
     }
-    // Cek tabrakan dengan tubuh sendiri
     for (int i = 1; i < panjangUlar; i++) {
         if (ular[0].x == ular[i].x && ular[0].y == ular[i].y) {
-        ResetGame();
-        tampilanAwal();
-        return;
+            gameOver = true;
+            ResetGame();
+            tampilanAwal();
         }
     }
 }
 
-//Fungsi Mengecek apakah ular makan makanan
-void CekMakanMakanan(int *makananX, int *makananY) {
-    if (ular[0].x == *makananX && ular[0].y == *makananY) {
-        if (panjangUlar < MAX_LENGTH){
-        panjangUlar++; // Tambah panjang ular
-        score++; //menambah skor 
-        GenerateRandomPosition(makananX, makananY); // Munculkan makanan baru
-    } else {
-        exit(0);
+
+//FUngsi Mengecek apakah ular makan makanan
+bool CekMakanMakanan(MakananStruct *makanan) {
+    if (ular[0].x == makanan->x && ular[0].y == makanan->y) {
+        panjangUlar++;
+        if (makanan->type == SPECIAL) score += 5;
+        else if (makanan->type == POISON) score -= 3;
+        else score += 1;
+        
+        GenerateRandomPosition(&makanan->x, &makanan->y);
+        makanan->type = GeneratemakananType();
+        return true;
     }
-    }
+    return false;
 }
 
 //Fungsi Menggambar ulang ular di layar

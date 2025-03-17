@@ -14,7 +14,7 @@ extern int elapsed_time;
 extern int total_paused_duration;
 extern bool stopwatch_running;
 
-void TampilkanSkor();
+void Tampilkanscore();
 
 void Stopwatch();
 

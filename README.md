@@ -31,3 +31,7 @@ Update Salma :
 
 Update Dimas :
 - 10/03/2025, Perbaikan panjang ular maksimal (sudah disesuaikan dengan ukuran arena)
+
+Update Samudra : 
+//perubahan terdapat pada modul  void Makanan(MakananStruct makanan), bool CekMakanMakanan(MakananStruct *makanan), void LoopGame(), dan void Tampilkanscore(). 
+//penambahan modul makananType GeneratemakananType() dan struct makanan type, makananstruct 

@@ -23,7 +23,7 @@ void GerakUlar();
 
 void CekTabrakan();
 
-void CekMakanMakanan(int *makananX, int *makananY);
+bool CekMakanMakanan(MakananStruct *makanan);
 
 void GambarUlar();
 

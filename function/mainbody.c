@@ -4,15 +4,17 @@
 #include <stdlib.h>
 #include <time.h>
 #include "../header/mainhead.h"
-#include "../header/pages.h"
 #include "../header/makanan.h"
+#include "../header/pages.h"
 #include "../header/ular.h"
 #include "../header/stopwatch.h"
 
 bool paused = false;
+bool gameOver = false;
 int kepalaX = 0, kepalaY = 0;
 int score = 0;
 int makananX = 0, makananY = 0;
+
 
 // Fungsi untuk mengonversi warna dari string ke nilai integer
 int AmbilWarna(CSTR color) 
@@ -84,12 +86,24 @@ void tombol(int x, int y, int panjang, int lebar, CSTR warna, CSTR teks, int uku
 
 //Fungsi Loop utama game
 void LoopGame() {
-    int makananX, makananY;
-    GenerateRandomPosition(&makananX, &makananY);
+    int activePage = 0; // Buffer untuk double buffering
+    double lastUpdate = clock(); // Waktu terakhir frame diperbarui
+    double lastMoveTime = clock(); // Waktu terakhir ular bergerak
+    double frameDelay = 1000.0 / 60.0; // 60 FPS
+    double snakeSpeed = 150.0; // Kecepatan ular dalam ms (lebih besar = lebih lambat)
+
+    MakananStruct makanan;
+    GenerateRandomPosition(&makanan.x, &makanan.y);
+    makanan.type = GeneratemakananType();
+    makanan.spawnTime = clock(); // Simpan waktu makanan muncul
     startStopwatch();
 
-    while (1) {
-        if (kbhit()) { // Cek jika ada input keyboard
+    // **Loop utama game**
+    while (!gameOver) {
+        double currentTime = clock();
+
+        // **Input pemain**
+        if (kbhit()) {
             char key = getch();
         
             if (key == 0 || key == 224) {
@@ -143,22 +157,51 @@ void LoopGame() {
         
          // Jika game tidak dipause, jalankan game seperti biasa
          if (!paused) {
-            setbkcolor(CYAN);
-            cleardevice(); 
+            // *Batasi FPS (Frame Per Second)*
+            if (currentTime - lastUpdate < frameDelay) continue;
+            lastUpdate = currentTime;
 
+            // *Gerakkan ular berdasarkan kecepatan*
+            if (currentTime - lastMoveTime >= snakeSpeed) {
+                GerakUlar();
+                lastMoveTime = currentTime;
+            }
+
+            // *Hapus makanan poison setelah 5 detik*
+            if (makanan.type == POISON && (currentTime - makanan.spawnTime) / CLOCKS_PER_SEC > 5) {
+                printf("Makanan poison menghilang!\n");
+                GenerateRandomPosition(&makanan.x, &makanan.y);
+                makanan.type = GeneratemakananType();
+                makanan.spawnTime = clock(); // Reset waktu spawn
+            }
+
+            // *Double Buffering*
+            activePage = 1 - activePage;
+            setactivepage(activePage);
+            cleardevice(); // Bersihkan layar sebelum menggambar ulang elemen game
+
+            // *Gambar elemen game*
             Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "WHITE");
             tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
             setbkcolor(CYAN);
 
+            // *Gambar elemen game lainnya*
+            Tampilkanscore();
             Stopwatch();
-            Makanan(makananX, makananY); 
+            Makanan(makanan);
+            GambarUlar();
 
-            GerakUlar();
-            CekTabrakan(); 
-            CekMakanMakanan(&makananX, &makananY); 
+            // *Cek jika ular makan makanan*
+            if (CekMakanMakanan(&makanan)) {
+                GenerateRandomPosition(&makanan.x, &makanan.y);  
+                makanan.type = GeneratemakananType();
+                makanan.spawnTime = clock(); // Reset waktu spawn makanan
+                
+                printf("Score sekarang: %d\n", score);
+            }
 
-            GambarUlar(); 
-            TampilkanSkor(); 
+            // *Tampilkan buffer aktif*
+            setvisualpage(activePage);
         } else {
             int popupX = SCREEN_WIDTH / 4;
             int popupY = SCREEN_HEIGHT / 4;
@@ -172,6 +215,7 @@ void LoopGame() {
             tombol(popupX + (popupWidth / 2) - 50, popupY + popupHeight / 2 + 30, 100, 40, "RED", "EXIT", 2);
         }
 
+        CekTabrakan();
         delay(100); // Beri jeda agar pergerakan lebih halus
     }
 }
