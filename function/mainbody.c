@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 #include "../header/mainhead.h"
 #include "../header/makanan.h"
 #include "../header/pages.h"
