@@ -1,26 +1,24 @@
-# PROYEK-2-KELOMPOK5-B
+# PROYEK-2-KELOMPOK5-B SNAKESNACK
 
-Repository untuk penugasan proyek 2 dari kelompok 5 kelas 1B
+Repository untuk penugasan proyek 2 dari kelompok 5 kelas 1B Aplikasi Game Ular Mukbang
 
-Kelompok 5 :
+Anggota Kelompok 5 :
 
-- Ridho Sulistyo Saputro
-- Salma Arifah Zahra
-- Samudra Putra Gunawan
-- Dimas Rizal Ramadhani
-- Akmal Rezaqi Al-Farhan
+- Ridho Sulistyo Saputro (059)
+- Salma Arifah Zahra (062)
+- Samudra Putra Gunawan (063)
+- Dimas Rizal Ramadhani (040)
+- Akmal Rezaqi Al-Farhan (036)
 
-APLIKASI ULAR MAKAN APEL HEHE
+## untuk melakukan compile aplikasi
 
-// untuk melakukan compile aplikasi
-
-g++ main.c function/mainbody.c function/pages.c function/makanan.c function/stopwatch.c function/ular.c -o main.exe -I"C:\MinGW-w64\mingw64\include" -L"C:\MinGW-w64\mingw64\lib" -lbgi -lgdi32 -lcomdlg32 -luuid -loleaut32 -lole32
-
-atau compile menggunakan
-
+1. Ketik di terminal :
 mingw32-make
 
-# Modul Modul dan Pemiliknya
+2. Lalu jalankan melalui terminal :
+./main.exe
+
+## Modul Modul dan Pemiliknya
 
 Ridho : 
 - Modul AmbilWarna
@@ -58,7 +56,7 @@ Farhan :
 - Modul startStopwatch
 
 
-## Update Perbahan Minggu ke-6
+### Update Perbahan Minggu ke-6
 Update Ridho :
 - Membuat fitur play and pause : modul LoopGame mainbody
 - menambahkan modul ResetGame
