@@ -1,4 +1,4 @@
-# PROYEK-2-KELOMPOK5-B SNAKESNACK
+# PROYEK-2 KELOMPOK-B5 SNAKESNACK
 
 Repository untuk penugasan proyek 2 dari kelompok 5 kelas 1B Aplikasi Game Ular Mukbang
 
@@ -10,13 +10,11 @@ Anggota Kelompok 5 :
 - Dimas Rizal Ramadhani (040)
 - Akmal Rezaqi Al-Farhan (036)
 
-## untuk melakukan compile aplikasi
+## Cara melakukan compile aplikasi
 
-1. Ketik di terminal :
-mingw32-make
+1. Ketik di terminal : mingw32-make
 
-2. Lalu jalankan melalui terminal :
-./main.exe
+2. Lalu jalankan melalui terminal : ./main.exe
 
 ## Modul Modul dan Pemiliknya
 
@@ -56,7 +54,7 @@ Farhan :
 - Modul startStopwatch
 
 
-### Update Perbahan Minggu ke-6
+## Update Perbahan Minggu ke-6
 Update Ridho :
 - Membuat fitur play and pause : modul LoopGame mainbody
 - menambahkan modul ResetGame
