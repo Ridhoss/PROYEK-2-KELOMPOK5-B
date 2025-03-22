@@ -85,6 +85,41 @@ void tombol(int x, int y, int panjang, int lebar, CSTR warna, CSTR teks, int uku
     tulisan(x, y, panjang, lebar, "WHITE", teks, ukuranTeks, Center);
 }
 
+// Fungsi untuk mengaktifkan atau menonaktifkan pause
+void Tombolpause() {
+    if (!paused) {
+        paused = true;
+        paused_time = time(NULL);
+    } else {
+        paused = false;
+        total_paused_duration += time(NULL) - paused_time;
+    }
+}
+
+// Fungsi untuk menangani klik mouse saat game dipause
+void HandlePause(int x, int y) {
+    if (!paused && x >= 520 && x <= 620 && y >= 15 && y <= 45) {
+        Tombolpause();
+    } else if (paused) {
+        int popupX = SCREEN_WIDTH / 4;
+        int popupY = SCREEN_HEIGHT / 4;
+        int popupWidth = SCREEN_WIDTH / 2;
+        int popupHeight = SCREEN_HEIGHT / 2;
+
+        int resumeX = popupX + (popupWidth / 2) - 50;
+        int resumeY = popupY + popupHeight / 2 - 20;
+        int exitX = popupX + (popupWidth / 2) - 50;
+        int exitY = popupY + popupHeight / 2 + 30;
+
+        if (x >= resumeX && x <= resumeX + 100 && y >= resumeY && y <= resumeY + 40) {
+            Tombolpause();
+        } else if (x >= exitX && x <= exitX + 100 && y >= exitY && y <= exitY + 40) {
+            ResetGame();
+            tampilanAwal();
+        }
+    }
+}
+
 //Fungsi Loop utama game
 void LoopGame() {
     int activePage = 0; // Buffer untuk double buffering
@@ -115,44 +150,19 @@ void LoopGame() {
                 else if (key == 77 && arah != LEFT) arah = RIGHT; // Panah kanan
             } 
             else if (key == 'p' || key == 'P') {
-                paused = true;
-                paused_time = time(NULL);
-                while (kbhit()) getch();
+                Tombolpause();
             }
         }
         //Mouse Klik Paused
          if (ismouseclick(WM_LBUTTONDOWN)) {
             int x, y;
             getmouseclick(WM_LBUTTONDOWN, x, y);
+            HandlePause(x, y);
 
             // Jika Klik PAUSE
             if (!paused && x >= 520 && x <= 620 && y >= 15 && y <= 45) {
                 paused = true;
                 paused_time = time(NULL);
-            }
-            // Jika Klik PAUSE, cek tombol RESUME atau EXIT
-            if (paused) {
-                int popupX = SCREEN_WIDTH / 4;
-                int popupY = SCREEN_HEIGHT / 4;
-                int popupWidth = SCREEN_WIDTH / 2;
-                int popupHeight = SCREEN_HEIGHT / 2;
-
-                int resumeX = popupX + (popupWidth / 2) - 50;
-                int resumeY = popupY + popupHeight / 2 - 20;
-                int exitX = popupX + (popupWidth / 2) - 50;
-                int exitY = popupY + popupHeight / 2 + 30;
-
-                // Klik tombol RESUME
-                if (x >= resumeX && x <= resumeX + 100 && y >= resumeY && y <= resumeY + 40) {
-                    paused = false;
-                    total_paused_duration += time(NULL) - paused_time; // Hitung waktu pause
-                }
-                // Klik tombol EXIT (kembali ke menu utama)
-                else if (x >= exitX && x <= exitX + 100 && y >= exitY && y <= exitY + 40) {
-                    ResetGame();
-                    tampilanAwal();
-                    return;
-                }
             }
         }
         
@@ -182,8 +192,8 @@ void LoopGame() {
             cleardevice(); // Bersihkan layar sebelum menggambar ulang elemen game
 
             // *Gambar elemen game*
-            Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "WHITE");
-            tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
+            Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "BLACK");
+            tombol(520, 15, 100, 30, "BLACK", "PAUSE", 2);
             setbkcolor(CYAN);
 
             // *Gambar elemen game lainnya*
@@ -238,4 +248,3 @@ void ResetGame() {
     // Reset makanan
     GenerateRandomPosition(&makananX, &makananY);
 }
-

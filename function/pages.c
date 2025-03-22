@@ -12,9 +12,27 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 
+// Fungsi untuk menggambar titik-titik putih secara acak di layar
+void Titik() {
+    int jml = 20;  
+    int ukuran = 4;   
+
+    srand(time(NULL)); // Seed untuk posisi acak
+
+    for (int i = 0; i < jml; i++) {
+        int x = rand() % getmaxx(); // Acak posisi x
+        int y = rand() % getmaxy(); // Acak posisi y
+
+        setfillstyle(SOLID_FILL, AmbilWarna("WHITE"));
+        fillellipse(x, y, ukuran / 2, ukuran / 2); 
+    }
+}
+
 void tampilanAwal() {
-    setbkcolor(CYAN);
+    setbkcolor(BLACK);
     cleardevice();
+
+    Titik(); 
 
     char judul[] = "SNACK SNAKE B5";
     tulisan(0, 120, SCREEN_WIDTH, 0, "WHITE", judul, 6, Center);
@@ -23,8 +41,8 @@ void tampilanAwal() {
     int posisiX = (SCREEN_WIDTH - tombolLebar) / 2;
     int posisiY = 190;
 
-    tombol(posisiX, posisiY, tombolLebar, tombolTinggi, "DARKGRAY", "START", 3);
-    tombol(posisiX, posisiY + 80, tombolLebar, tombolTinggi, "DARKGRAY", "EXIT", 3);
+    tombol(posisiX, posisiY, tombolLebar, tombolTinggi, "GREEN", "START", 3);
+    tombol(posisiX, posisiY + 80, tombolLebar, tombolTinggi, "RED", "EXIT", 3);
 
     //klik start dan quit!
     while (1) {
@@ -43,38 +61,53 @@ void tampilanAwal() {
     }
 }
 
+// Fungsi untuk menggambar awan
+void gambarAwan(int x, int y) {
+    setfillstyle(SOLID_FILL, WHITE);
+    fillellipse(x, y, 30, 20);
+    fillellipse(x + 20, y + 10, 30, 20);
+    fillellipse(x - 20, y + 10, 30, 20);
+    fillellipse(x + 40, y, 30, 20);
+    fillellipse(x - 40, y, 30, 20);
+}
+
 void tampilanPlay() {
-    setbkcolor(LIGHTBLUE);
+    setbkcolor(BLACK); 
     cleardevice();
 
+    Titik(); 
+
+    
+    for (int i = 0; i < SCREEN_WIDTH + 40; i += 60) {  
+        gambarAwan(i, 0);
+    }
+   
     char judul[] = "GET READY!";
-    tulisan(0, 100, SCREEN_WIDTH, 0, "WHITE", judul, 5, Center);
+    tulisan(0, 130, SCREEN_WIDTH, 0, "WHITE", judul, 6, Center);
+
 
     int tombolLebar = 150, tombolTinggi = 50;
     int posisiX = (SCREEN_WIDTH - tombolLebar) / 2;
-    int posisiY = 200;
+    int posisiY = 220;
 
-    tombol(posisiX, posisiY, tombolLebar, tombolTinggi, "GREEN", "PLAY", 3);
+    tombol(posisiX, posisiY, tombolLebar, tombolTinggi, "GREEN", "Play", 3);
 
+    // Event klik tombol
     while (1) {
         int x, y;
+        // Jika tombol kiri mouse ditekan
         if (ismouseclick(WM_LBUTTONDOWN)) {
             getmouseclick(WM_LBUTTONDOWN, x, y);
-            
-            if (x >= posisiX && x <= posisiX + tombolLebar && y >= posisiY && y <= posisiY + tombolTinggi) {
-                paused = false;
 
-                // Tambahkan ini supaya stopwatch mulai dari awal
-                stopwatch_running = true; 
-                startStopwatch();
-                gameOver = false;
-                tampilanArena();
-                break;
-            }
+            // Memulai permainan setelah tombol diklik
+            stopwatch_running = true; 
+            startStopwatch();
+            gameOver = false;
+            tampilanArena();
+            break;
         }
     }
-}
-
+} 
 
 void tampilanArena() {
     setbkcolor(CYAN);
