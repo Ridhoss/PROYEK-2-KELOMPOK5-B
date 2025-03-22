@@ -3,21 +3,25 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
+#include "../header/basicfunction.h"
 #include "../header/makanan.h"
-#include "../header/mainhead.h"
 #include "../header/pages.h"
 #include "../header/ular.h"
 #include "../header/stopwatch.h"
+#include "../header/mechanism.h"
 
-
-
-// Fungsi membuat posisi acak  
+// Fungsi membuat posisi acak
+// pembuat modul : Samudra
+// dimodifikasi oleh : -
 void GenerateRandomPosition(int *x, int *y) {
     *x = 20 + (rand() % ((SCREEN_WIDTH - 40) / 20)) * 20;
     *y = 60 + (rand() % ((SCREEN_HEIGHT - 80) / 20)) * 20;
 }
 
 // Fungsi untuk menentukan jenis makanan secara acak
+// pembuat modul : Samudra
+// dimodifikasi oleh : -
 makananType GeneratemakananType() {
     int random = rand() % 10; // 0-9
 
@@ -27,6 +31,8 @@ makananType GeneratemakananType() {
 }
 
 // Fungsi membuat makanan
+// pembuat modul : Samudra
+// dimodifikasi oleh : -
 void Makanan(MakananStruct makanan) {
     switch (makanan.type) {
         case NORMAL:

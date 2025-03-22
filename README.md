@@ -20,6 +20,45 @@ atau compile menggunakan
 
 mingw32-make
 
+# Modul Modul dan Pemiliknya
+
+Ridho : 
+- Modul AmbilWarna
+- Modul tulisan
+- Modul Kotak
+- Modul tombol
+- Modul ResetGame
+- Modul tampilanAwal
+- Modul PopUpPause
+
+Salma : 
+- Modul Titik
+- Modul gambarAwan
+- Modul Tombolpause
+- Modul HandlePause
+- Modul tampilanPlay
+- Modul tampilanArena
+
+Samudra : 
+- Modul GenerateRandomPosition
+- Modul GeneratemakanantType
+- Modul Makanan
+- Modul TampilkanScore
+
+Dimas : 
+- Modul LoopGame
+- Modul InitUlar
+- Modul GerakUlar
+- Modul CekTabrakan
+- Modul CekMakanMakanan
+- Modul GambarUlar
+
+Farhan : 
+- Modul Stopwatch
+- Modul startStopwatch
+
+
+## Update Perbahan Minggu ke-6
 Update Ridho :
 - Membuat fitur play and pause : modul LoopGame mainbody
 - menambahkan modul ResetGame

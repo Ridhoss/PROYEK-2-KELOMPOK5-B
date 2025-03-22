@@ -3,31 +3,17 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include "../header/pages.h"
-#include "../header/mainhead.h"
+#include <stdbool.h>
+#include "../header/basicfunction.h"
 #include "../header/makanan.h"
+#include "../header/pages.h"
 #include "../header/ular.h"
 #include "../header/stopwatch.h"
+#include "../header/mechanism.h"
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
-
-// Fungsi untuk menggambar titik-titik putih secara acak di layar
-void Titik() {
-    int jml = 20;  
-    int ukuran = 4;   
-
-    srand(time(NULL)); // Seed untuk posisi acak
-
-    for (int i = 0; i < jml; i++) {
-        int x = rand() % getmaxx(); // Acak posisi x
-        int y = rand() % getmaxy(); // Acak posisi y
-
-        setfillstyle(SOLID_FILL, AmbilWarna("WHITE"));
-        fillellipse(x, y, ukuran / 2, ukuran / 2); 
-    }
-}
-
+// prosedur untuk tampilan awal
+// pembuat modul : Ridho
+// dimodifikasi oleh : Salma
 void tampilanAwal() {
     setbkcolor(BLACK);
     cleardevice();
@@ -61,27 +47,19 @@ void tampilanAwal() {
     }
 }
 
-// Fungsi untuk menggambar awan
-void gambarAwan(int x, int y) {
-    setfillstyle(SOLID_FILL, WHITE);
-    fillellipse(x, y, 30, 20);
-    fillellipse(x + 20, y + 10, 30, 20);
-    fillellipse(x - 20, y + 10, 30, 20);
-    fillellipse(x + 40, y, 30, 20);
-    fillellipse(x - 40, y, 30, 20);
-}
-
+// prosedur untuk tampilan play sebelum ingame
+// pembuat modul : Salma
+// dimodifikasi oleh : -
 void tampilanPlay() {
     setbkcolor(BLACK); 
     cleardevice();
 
     Titik(); 
-
     
     for (int i = 0; i < SCREEN_WIDTH + 40; i += 60) {  
         gambarAwan(i, 0);
     }
-   
+
     char judul[] = "GET READY!";
     tulisan(0, 130, SCREEN_WIDTH, 0, "WHITE", judul, 6, Center);
 
@@ -109,7 +87,11 @@ void tampilanPlay() {
     }
 } 
 
-void tampilanArena() {
+// prosedur untuk tampilan arena ingame
+// pembuat modul : Salma
+// dimodifikasi oleh : -
+void tampilanArena() 
+{
     setbkcolor(CYAN);
     cleardevice();
 
@@ -122,10 +104,22 @@ void tampilanArena() {
 
     // Mulai loop game
     LoopGame();
+}
 
-    // char score[100] = "Score: 0";
-    // tulisan(20, 20, 0, 0, "WHITE", score, 2, Random);
+// prosedur untuk tampilan popup saat game di pause
+// pembuat modul : Ridho
+// dimodifikasi oleh : -
+void PopUpPause() 
+{
+    int popupX = SCREEN_WIDTH / 4;
+    int popupY = SCREEN_HEIGHT / 4;
+    int popupWidth = SCREEN_WIDTH / 2;
+    int popupHeight = SCREEN_HEIGHT / 2;
 
-    // char stopwatch[100] = "00:20:00";
-    // tulisan(0, 30, SCREEN_WIDTH, 0, "WHITE", stopwatch, 2, Center);
+    Kotak(popupX, popupY, popupX + popupWidth, popupY + popupHeight, "CYAN");
+    setbkcolor(CYAN); 
+    tulisan(popupX + popupWidth / 2, popupY + 50, 0, 0, "GREY", "GAME PAUSED", 5, Center);
+    tombol(popupX + (popupWidth / 2) - 50, popupY + popupHeight / 2 - 20, 100, 40, "GREEN", "RESUME", 2);
+    tombol(popupX + (popupWidth / 2) - 50, popupY + popupHeight / 2 + 30, 100, 40, "RED", "EXIT", 2);
+    setbkcolor(CYAN);
 }

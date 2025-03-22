@@ -3,11 +3,13 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include "../header/stopwatch.h"
-#include "../header/mainhead.h"
-#include "../header/pages.h"
+#include <stdbool.h>
+#include "../header/basicfunction.h"
 #include "../header/makanan.h"
+#include "../header/pages.h"
 #include "../header/ular.h"
+#include "../header/stopwatch.h"
+#include "../header/mechanism.h"
 
 time_t start_time;
 time_t paused_time = 0;
@@ -15,22 +17,9 @@ int elapsed_time = 0;
 int total_paused_duration = 0;
 bool stopwatch_running = false;
 
-//Fungsi Score
-void Tampilkanscore() {
-    // Konversi score ke string
-    char scoreText[20];
-    sprintf(scoreText, "Score: %d", score);
-
-    // Set warna teks dan latar belakang agar terlihat jelas
-    setcolor(WHITE);
-    setbkcolor(CYAN);
-    settextstyle(SANS_SERIF_FONT, HORIZ_DIR, 2);
-
-    // Tampilkan teks score di layar
-    outtextxy(30, 20, scoreText);
-}
-
-//stopwatch
+// Prosedur mekanisme stopwatch
+// pembuat modul : Akmal
+// dimodifikasi oleh : -
 void Stopwatch() {
     if (stopwatch_running && !paused) {
         elapsed_time = time(NULL) - start_time - total_paused_duration;
@@ -51,8 +40,9 @@ void Stopwatch() {
     outtextxy(x_center, 20, time_str);
 }
 
-
 //Fungsi untuk memulai stopwatch
+// pembuat modul : Akmal
+// dimodifikasi oleh : -
 void startStopwatch() {
     start_time = time(NULL);
 }

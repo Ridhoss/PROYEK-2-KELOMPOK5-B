@@ -4,12 +4,12 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
+#include "../header/basicfunction.h"
 #include "../header/makanan.h"
-#include "../header/ular.h"
-#include "../header/mainhead.h"
 #include "../header/pages.h"
-#include "../header/makanan.h"
+#include "../header/ular.h"
 #include "../header/stopwatch.h"
+#include "../header/mechanism.h"
 
 extern int score;
 
@@ -17,7 +17,9 @@ Segment ular[MAX_LENGTH];
 int panjangUlar = 3;
 Direction arah = RIGHT;
 
-//Fungsi Inisialisasi posisi awal ular
+// Prosedur Inisialisasi posisi awal ular
+// pembuat modul : Dimas
+// dimodifikasi oleh : -
 void InitUlar() {
     int startX = SCREEN_WIDTH / 2;
     int startY = SCREEN_HEIGHT / 2;
@@ -28,7 +30,9 @@ void InitUlar() {
     }
 }
 
-//Fungsi Menggerakkan ular
+// Prosedur Menggerakkan ular
+// pembuat modul : Dimas
+// dimodifikasi oleh : -
 void GerakUlar() {
     // Pindahkan badan ular mengikuti kepala
     for (int i = panjangUlar - 1; i > 0; i--) {
@@ -42,7 +46,9 @@ void GerakUlar() {
     if (arah == RIGHT) ular[0].x += CELL_SIZE;
 }
 
-//Fungsi Mengecek tabrakan dengan dinding atau tubuh sendiri
+// Prosedur Mengecek tabrakan dengan dinding atau tubuh sendiri
+// pembuat modul : Dimas
+// dimodifikasi oleh : -
 void CekTabrakan() {
     // tabrakan dengan dinding
     if (ular[0].x < 20 || ular[0].x >= SCREEN_WIDTH - 20 ||
@@ -60,8 +66,9 @@ void CekTabrakan() {
     }
 }
 
-
-//FUngsi Mengecek apakah ular makan makanan
+// Prosedur Mengecek apakah ular makan makanan
+// pembuat modul : Dimas
+// dimodifikasi oleh : -
 bool CekMakanMakanan(MakananStruct *makanan) {
     if (ular[0].x == makanan->x && ular[0].y == makanan->y) {
         panjangUlar++;
@@ -76,7 +83,9 @@ bool CekMakanMakanan(MakananStruct *makanan) {
     return false;
 }
 
-//Fungsi Menggambar ulang ular di layar
+// Prosedur Menggambar ulang ular di layar
+// pembuat modul : Dimas
+// dimodifikasi oleh : -
 void GambarUlar() {
     // Gambar kepala dengan warna merah
     Kotak(ular[0].x, ular[0].y, ular[0].x + CELL_SIZE, ular[0].y + CELL_SIZE, "GREEN");
