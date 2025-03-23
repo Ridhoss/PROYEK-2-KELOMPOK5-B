@@ -45,4 +45,7 @@ void Stopwatch() {
 // dimodifikasi oleh : -
 void startStopwatch() {
     start_time = time(NULL);
+    elapsed_time = 0;
+    total_paused_duration = 0;
+    stopwatch_running = true; 
 }

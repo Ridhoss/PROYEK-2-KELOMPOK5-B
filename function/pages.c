@@ -77,9 +77,6 @@ void tampilanPlay() {
         if (ismouseclick(WM_LBUTTONDOWN)) {
             getmouseclick(WM_LBUTTONDOWN, x, y);
 
-            // Memulai permainan setelah tombol diklik
-            stopwatch_running = true; 
-            startStopwatch();
             gameOver = false;
             tampilanArena();
             break;
@@ -95,7 +92,7 @@ void tampilanArena()
     setbkcolor(CYAN);
     cleardevice();
 
-    Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "WHITE");
+    Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "BLACK");
 
     tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
 

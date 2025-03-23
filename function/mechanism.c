@@ -116,6 +116,7 @@ void LoopGame() {
     GenerateRandomPosition(&makanan.x, &makanan.y);
     makanan.type = GeneratemakananType();
     makanan.spawnTime = clock(); // Simpan waktu makanan muncul
+
     startStopwatch();
 
     // **Loop utama game**
@@ -188,17 +189,4 @@ void ResetGame() {
     arah = RIGHT;
     panjangUlar = 3;
     score = 0;
-
-    // Reset Stopwatch
-    start_time = time(NULL);
-    elapsed_time = 0;
-    total_paused_duration = 0;
-    stopwatch_running = true;
-
-    // Reset posisi ular
-    InitUlar();
-
-    // Reset makanan
-    MakananStruct makanan;
-    GenerateRandomPosition(&makanan.x, &makanan.y);  
 }
