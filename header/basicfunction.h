@@ -9,7 +9,7 @@ typedef enum { Center, Random } typePenempatanTulisan;
 // header mengambil warna
 int AmbilWarna(CSTR color);
 // header membuat tulisan
-void tulisan(int x, int y, int lebar, int tinggi, CSTR warna, CSTR teks, int ukuran, typePenempatanTulisan penempatan);
+void tulisan(int x, int y, int widthP, int heightP, CSTR warna, CSTR teks, int ukuran, typePenempatanTulisan penempatan);
 // header kotak
 void Kotak(int x1, int y1, int x2, int y2, CSTR warna);
 // prosedur untuk membuat hiasan titik putih secara acak

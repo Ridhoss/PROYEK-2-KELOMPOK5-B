@@ -39,7 +39,7 @@ int AmbilWarna(CSTR color)
 // Fungsi membuat teks
 // pembuat modul : Ridho
 // dimodifikasi oleh : -
-void tulisan(int x, int y, int lebar, int tinggi, CSTR warna, CSTR teks, int ukuran, typePenempatanTulisan penempatan) 
+void tulisan(int x, int y, int widthP, int heightP, CSTR warna, CSTR teks, int ukuran, typePenempatanTulisan penempatan) 
 {
     setcolor(AmbilWarna(warna));
     settextstyle(BOLD_FONT, HORIZ_DIR, ukuran);
@@ -52,8 +52,8 @@ void tulisan(int x, int y, int lebar, int tinggi, CSTR warna, CSTR teks, int uku
     if (penempatan == Center) {
         textWidth = textwidth(teksCopy);
         textHeight = textheight(teksCopy);
-        textX = x + (lebar - textWidth) / 2;
-        textY = y + (tinggi - textHeight) / 2;
+        textX = x + (widthP - textWidth) / 2;
+        textY = y + (heightP - textHeight) / 2;
 
     } else if (penempatan == Random) {
         textX = x;

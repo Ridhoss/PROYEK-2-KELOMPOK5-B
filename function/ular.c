@@ -68,7 +68,7 @@ void CekTabrakan() {
 
 // Prosedur Mengecek apakah ular makan makanan
 // pembuat modul : Dimas
-// dimodifikasi oleh : -
+// dimodifikasi oleh : Samudra
 bool CekMakanMakanan(MakananStruct *makanan) {
     if (ular[0].x == makanan->x && ular[0].y == makanan->y) {
         panjangUlar++;

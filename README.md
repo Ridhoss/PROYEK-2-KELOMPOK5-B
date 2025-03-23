@@ -37,7 +37,7 @@ Salma :
 
 Samudra : 
 - Modul GenerateRandomPosition
-- Modul GeneratemakanantType
+- Modul GeneratemakananType
 - Modul Makanan
 - Modul TampilkanScore
 

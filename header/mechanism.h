@@ -4,11 +4,7 @@
 
 extern bool paused;
 extern bool gameOver;
-extern int kepalaX;
-extern int kepalaY;
 extern int score;
-extern int makananX;
-extern int makananY;
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
@@ -24,6 +20,8 @@ void Tampilkanscore();
 void Tombolpause();
 // prosedur untuk menghandle interaksi tombol pause
 void HandlePause(int x, int y);
+// header cek input user
+void CekInputUser();
 // header loop game
 void LoopGame();
 // header reset

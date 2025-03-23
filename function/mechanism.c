@@ -13,9 +13,7 @@
 
 bool paused = false;
 bool gameOver = false;
-int kepalaX = 0, kepalaY = 0;
 int score = 0;
-int makananX = 0, makananY = 0;
 
 // Prosedur untuk menampilkan score
 // pembuat modul : Samudra
@@ -74,6 +72,36 @@ void HandlePause(int x, int y) {
     }
 }
 
+// Prosedur cek input user
+// pembuat modul : Ridho
+// dimodifikasi oleh : Dimas, Salma
+void CekInputUser()
+{
+    // **Input pemain**
+    if (kbhit()) {
+        char key = getch();
+    
+        if (key == 0 || key == 224) {
+            key = getch();
+            if (key == 72 && arah != DOWN) arah = UP;    // Panah atas
+            else if (key == 80 && arah != UP) arah = DOWN;    // Panah bawah
+            else if (key == 75 && arah != RIGHT) arah = LEFT; // Panah kiri
+            else if (key == 77 && arah != LEFT) arah = RIGHT; // Panah kanan
+        } 
+        else if (key == 'p' || key == 'P') {
+            Tombolpause();
+        }
+    }
+    
+    //Mouse Klik Paused
+    if (ismouseclick(WM_LBUTTONDOWN)) {
+        int x, y;
+        
+        getmouseclick(WM_LBUTTONDOWN, x, y);
+        HandlePause(x, y);
+    }
+}
+
 // Prosedur Loop utama game
 // pembuat modul : Dimas
 // dimodifikasi oleh : Samudra, Ridho, Salma
@@ -94,30 +122,7 @@ void LoopGame() {
     while (!gameOver) {
         double currentTime = clock();
 
-        // **Input pemain**
-        if (kbhit()) {
-            char key = getch();
-        
-            if (key == 0 || key == 224) {
-                key = getch();
-                if (key == 72 && arah != DOWN) arah = UP;    // Panah atas
-                else if (key == 80 && arah != UP) arah = DOWN;    // Panah bawah
-                else if (key == 75 && arah != RIGHT) arah = LEFT; // Panah kiri
-                else if (key == 77 && arah != LEFT) arah = RIGHT; // Panah kanan
-            } 
-            else if (key == 'p' || key == 'P') {
-                Tombolpause();
-            }
-        }
-        
-        //Mouse Klik Paused
-        if (ismouseclick(WM_LBUTTONDOWN)) {
-            int x, y;
-            
-            getmouseclick(WM_LBUTTONDOWN, x, y);
-            HandlePause(x, y);
-
-        }
+        CekInputUser();
         
          // Jika game tidak dipause, jalankan game seperti biasa
         if (!paused) {
@@ -181,8 +186,6 @@ void LoopGame() {
 void ResetGame() {
     paused = false;
     arah = RIGHT;
-    kepalaX = SCREEN_WIDTH / 2;
-    kepalaY = SCREEN_HEIGHT / 2;
     panjangUlar = 3;
     score = 0;
 
@@ -192,6 +195,10 @@ void ResetGame() {
     total_paused_duration = 0;
     stopwatch_running = true;
 
+    // Reset posisi ular
+    InitUlar();
+
     // Reset makanan
-    GenerateRandomPosition(&makananX, &makananY);
+    MakananStruct makanan;
+    GenerateRandomPosition(&makanan.x, &makanan.y);  
 }
