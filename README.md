@@ -17,7 +17,12 @@ Anggota Kelompok 5 :
 mingw32-make
 ```
 
-2. Lalu jalankan melalui terminal :
+2. Jika tidak berhasil (skip jika nomor 1 berhasil) :
+```bash
+g++ main.c function/basicfunction.c function/pages.c function/makanan.c function/stopwatch.c function/ular.c function/mechanism.c main.exe -I"C:\MinGW-w64\mingw64\include" -L"C:\MinGW-w64\mingw64\lib" -lbgi -lgdi32 -lcomdlg32 -luuid -loleaut32 -lole32
+```
+
+3. Lalu jalankan melalui terminal :
 ```bash
 ./main.exe
 ```
@@ -58,24 +63,3 @@ Dimas :
 Farhan : 
 - Modul Stopwatch
 - Modul startStopwatch
-
-
-## Update Perbahan Minggu ke-6
-Update Ridho :
-- Membuat fitur play and pause : modul LoopGame mainbody
-- menambahkan modul ResetGame
-- menambahkan variabel global di mainhead
-- perbaikan di modul stopwatch
-
-Update Salma :
-- Mouse Click untuk Pause/Resume : function/mainbody.c(line 97)
-
-Update Dimas :
-- 10/03/2025, Perbaikan panjang ular maksimal (sudah disesuaikan dengan ukuran arena)
-
-Update Samudra : 
-- perubahan terdapat pada modul  void Makanan(MakananStruct makanan)
-- bool CekMakanMakanan(MakananStruct *makanan)
-- void LoopGame()
-- dan void Tampilkanscore() 
-- penambahan modul makananType GeneratemakananType() dan struct makanan type, makananstruct 
