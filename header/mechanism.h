@@ -6,8 +6,11 @@ extern bool paused;
 extern bool gameOver;
 extern int score;
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+extern int fullscreen_width;
+extern int fullscreen_height;
+
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 500
 
 #define BORDER_SIZE 20
 #define CELL_SIZE 20

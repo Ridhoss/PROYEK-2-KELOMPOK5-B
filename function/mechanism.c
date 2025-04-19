@@ -14,6 +14,8 @@
 bool paused = false;
 bool gameOver = false;
 int score = 0;
+int fullscreen_width = 640;
+int fullscreen_height = 480;
 
 // Prosedur untuk menampilkan score
 // pembuat modul : Samudra

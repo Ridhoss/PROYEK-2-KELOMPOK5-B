@@ -83,7 +83,7 @@ void Kotak(int x1, int y1, int x2, int y2, CSTR warna)
 void Titik() 
 {
     int jml = 20;  
-    int ukuran = 4;   
+    int ukuran = 4;
 
     srand(time(NULL)); // Seed untuk posisi acak
 

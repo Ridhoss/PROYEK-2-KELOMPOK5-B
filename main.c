@@ -10,8 +10,15 @@
 #include "header/mechanism.h"
 
 int main() {
-    int gd = DETECT, gm;
-    initgraph(&gd, &gm, NULL);
+    // Ambil resolusi layar penuh
+    fullscreen_width = GetSystemMetrics(SM_CXSCREEN);
+    fullscreen_height = GetSystemMetrics(SM_CYSCREEN);
+
+    // int width = GetSystemMetrics(SM_CXSCREEN);
+    // int height = GetSystemMetrics(SM_CYSCREEN);
+    
+    // Buka window dengan ukuran layar penuh
+    initwindow(fullscreen_width, fullscreen_height, "Snake Game", 0, 0);
 
     int posisiLayar = 0;
 
@@ -31,7 +38,6 @@ int main() {
         }
     }
 
-    getch();
     closegraph();
     return 0;
 
