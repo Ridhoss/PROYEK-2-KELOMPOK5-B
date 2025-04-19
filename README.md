@@ -12,9 +12,15 @@ Anggota Kelompok 5 :
 
 ## Cara melakukan compile aplikasi
 
-1. Ketik di terminal : mingw32-make
+1. Ketik di terminal :
+```bash
+mingw32-make
+```
 
-2. Lalu jalankan melalui terminal : ./main.exe
+2. Lalu jalankan melalui terminal :
+```bash
+./main.exe
+```
 
 ## Modul Modul dan Pemiliknya
 
