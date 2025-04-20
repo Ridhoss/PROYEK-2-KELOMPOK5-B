@@ -20,15 +20,54 @@ void tampilanAwal() {
 
     Titik(); 
 
-    char judul[] = "SNACK SNAKE B5";
-    tulisan(0, 120, SCREEN_WIDTH, 0, "WHITE", judul, 6, Center);
+    // Menampilkan logo snacksnake
+    readimagefile(
+        "assets/judul.bmp",
+        (fullscreen_width - 300) / 2,
+        10,
+        (fullscreen_width - 300) / 2 + 300,
+        10 + 207
+    );
+
+
+    int iconWidth = 25, iconHeight = 25;
+
+    //Pojok Kiri Atas: icon music_logo
+    readimagefile(
+        "assets/music_logo.bmp",
+        15, 20,
+        10 + iconWidth, 10 + iconHeight
+    );
+
+    //Pojok Kanan Atas: icon guide_logo
+    readimagefile(
+        "assets/guide_logo.bmp",
+        fullscreen_width - iconWidth - 10, 20,
+        fullscreen_width - 10, 10 + iconHeight
+    );
+
+    // Pojok Kiri Bawah: icon snake_logo
+    readimagefile(
+        "assets/snake_logo.bmp",
+        10, fullscreen_height - iconHeight - 30,
+        10 + iconWidth, fullscreen_height - 40
+    );
+
+    // Pojok Kanan Bawah: arena_logo
+    readimagefile(
+        "assets/arena_logo.bmp",
+        fullscreen_width - iconWidth - 20, fullscreen_height - iconHeight - 30,
+        fullscreen_width - 10, fullscreen_height - 40
+    );
 
     int tombolLebar = 200, tombolTinggi = 50;
-    int posisiX = (SCREEN_WIDTH - tombolLebar) / 2;
-    int posisiY = 190;
+    int posisiX = (fullscreen_width - tombolLebar) / 2;
+    int posisiY = 300;
 
     tombol(posisiX, posisiY, tombolLebar, tombolTinggi, "GREEN", "START", 3);
-    tombol(posisiX, posisiY + 80, tombolLebar, tombolTinggi, "RED", "EXIT", 3);
+    tombol(posisiX, posisiY + 80, tombolLebar, tombolTinggi, "BLUE", "LEADERBOARD", 3);
+    tombol(posisiX, posisiY + 150, tombolLebar, tombolTinggi, "RED", "EXIT", 3);
+
 
     //klik start dan quit!
     while (1) {
@@ -40,7 +79,7 @@ void tampilanAwal() {
                 tampilanPlay();
                 break;
             }
-            if (x >= posisiX && x <= posisiX + tombolLebar && y >= posisiY + 80 && y <= posisiY + 80 + tombolTinggi) {
+            if (x >= posisiX && x <= posisiX + tombolLebar && y >= posisiY + 150 && y <= posisiY + 150 + tombolTinggi) {
                 exit(0);
             }
         }
@@ -56,16 +95,16 @@ void tampilanPlay() {
 
     Titik(); 
     
-    for (int i = 0; i < SCREEN_WIDTH + 40; i += 60) {  
+    for (int i = 0; i < fullscreen_width + 40; i += 60) {  
         gambarAwan(i, 0);
     }
 
     char judul[] = "GET READY!";
-    tulisan(0, 130, SCREEN_WIDTH, 0, "WHITE", judul, 6, Center);
+    tulisan(0, 130, fullscreen_width, 0, "WHITE", judul, 6, Center);
 
 
     int tombolLebar = 150, tombolTinggi = 50;
-    int posisiX = (SCREEN_WIDTH - tombolLebar) / 2;
+    int posisiX = (fullscreen_width - tombolLebar) / 2;
     int posisiY = 220;
 
     tombol(posisiX, posisiY, tombolLebar, tombolTinggi, "GREEN", "Play", 3);
