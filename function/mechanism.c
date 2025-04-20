@@ -35,6 +35,27 @@ void Tampilkanscore()
     outtextxy(30, 20, scoreText);
 }
 
+// Prosedur untuk menampilkan leaderboard di arena main
+// pembuat modul : Salma
+// dimodifikasi oleh : -
+void tampilkanLeaderboard() {
+    int kotak_width = 340;
+    int kotak_height = 450;
+    
+    int spacing = 370; // Jarak antara kotak leaderboard dan area permainan
+
+    int x1 = SCREEN_WIDTH - kotak_width - 20 + spacing;
+    int y1 = 60;
+    int x2 = SCREEN_WIDTH - 20 + spacing;
+    int y2 = y1 + kotak_height;
+
+    Kotak(x1, y1, x2, y2, "BLACK");
+    setbkcolor(CYAN);
+
+    int imageHeight = 60;  
+    readimagefile("assets/group_leaderboard.bmp", x1 + 10, y1 + 10, x2 - 10, y1 + imageHeight);
+}
+
 // Prosedur untuk mengaktifkan atau menonaktifkan pause
 // pembuat modul : Salma
 // dimodifikasi oleh : -
@@ -155,13 +176,14 @@ void LoopGame() {
             // *Gambar elemen game*
             Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "BLACK");
             tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
-            setbkcolor(CYAN);
+            setbkcolor(BLACK);
 
             // *Gambar elemen game lainnya*
             Tampilkanscore();
             Stopwatch();
             Makanan(makanan);
             GambarUlar();
+            tampilkanLeaderboard();
 
             // *Cek jika ular makan makanan*
             if (CekMakanMakanan(&makanan)) {

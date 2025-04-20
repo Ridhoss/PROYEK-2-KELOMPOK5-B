@@ -29,5 +29,7 @@ void CekInputUser();
 void LoopGame();
 // header reset
 void ResetGame();
+//header leaderboard
+void tampilkanLeaderboard();
 
 #endif   

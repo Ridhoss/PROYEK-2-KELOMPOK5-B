@@ -86,6 +86,7 @@ void tampilanAwal() {
     }
 }
 
+
 // prosedur untuk tampilan play sebelum ingame
 // pembuat modul : Salma
 // dimodifikasi oleh : -
@@ -128,12 +129,14 @@ void tampilanPlay() {
 // dimodifikasi oleh : -
 void tampilanArena() 
 {
-    setbkcolor(CYAN);
+    setbkcolor(WHITE);
     cleardevice();
 
     Kotak(20, 60, SCREEN_WIDTH - 20, SCREEN_HEIGHT - 20, "BLACK");
 
-    tombol(520, 15, 100, 30, "DARKGRAY", "PAUSE", 2);
+    tombol(520, 15, 100, 30, "GREEN", "PAUSE", 2);
+    
+    tampilkanLeaderboard();
 
     // Inisialisasi ular
     InitUlar();
