@@ -9,8 +9,8 @@ extern int score;
 extern int fullscreen_width;
 extern int fullscreen_height;
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 900
+#define SCREEN_HEIGHT 700
 
 #define BORDER_SIZE 20
 #define CELL_SIZE 20
@@ -29,5 +29,7 @@ void CekInputUser();
 void LoopGame();
 // header reset
 void ResetGame();
+//header leaderboard
+void tampilkanLeaderboard();
 
 #endif   
