@@ -21,8 +21,8 @@ Direction arah = RIGHT;
 // pembuat modul : Dimas
 // dimodifikasi oleh : -
 void InitUlar() {
-    int startX = SCREEN_WIDTH / 2;
-    int startY = SCREEN_HEIGHT / 2;
+    int startX = SCREEN_WIDTH / 5;
+    int startY = SCREEN_HEIGHT / 5;
 
     for (int i = 0; i < panjangUlar; i++) {
         ular[i].x = startX - (i * CELL_SIZE);
