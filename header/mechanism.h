@@ -12,10 +12,9 @@ extern int fullscreen_height;
 #define SCREEN_WIDTH 900
 #define SCREEN_HEIGHT 700
 
-#define BORDER_SIZE 20
 #define CELL_SIZE 20
 
-#define MAX_LENGTH ((SCREEN_WIDTH - 2 * BORDER_SIZE) / CELL_SIZE) * ((SCREEN_HEIGHT - 2 * BORDER_SIZE) / CELL_SIZE)
+#define MAX_LENGTH ((SCREEN_WIDTH - 40) / CELL_SIZE) * ((SCREEN_HEIGHT - 80) / CELL_SIZE)
 
 // prosedur untuk menampilkan score
 void Tampilkanscore();
