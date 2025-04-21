@@ -150,16 +150,19 @@ void LoopGame() {
         
          // Jika game tidak dipause, jalankan game seperti biasa
         if (!paused) {
-            // *Batasi FPS (Frame Per Second)*
-            if (currentTime - lastUpdate < frameDelay) continue;
-            lastUpdate = currentTime;
-
-            // *Gerakkan ular berdasarkan kecepatan*
-            if (currentTime - lastMoveTime >= snakeSpeed) {
-                GerakUlar();
-                lastMoveTime = currentTime;
+            // *Percepat ular seiring waktu*
+            double elapsedTime = (currentTime - lastUpdate) / CLOCKS_PER_SEC;
+            if (elapsedTime >= 60) { // Setiap 60 detik, percepat ular
+                snakeSpeed = snakeSpeed > 50 ? snakeSpeed - 10 : snakeSpeed; // Batas minimum kecepatan
+                lastUpdate = currentTime; // Reset waktu terakhir update
             }
 
+            // *Gerakkan ular berdasarkan kecepatan*
+            if ((currentTime - lastMoveTime) >= snakeSpeed) {
+                GerakUlar();
+                lastMoveTime = currentTime; // Reset waktu terakhir ular bergerak
+            }
+                
             // *Hapus makanan poison setelah 5 detik*
             if (makanan.type == POISON && (currentTime - makanan.spawnTime) / CLOCKS_PER_SEC > 5) {
                 printf("Makanan poison menghilang!\n");
@@ -201,7 +204,6 @@ void LoopGame() {
         }
 
         CekTabrakan();
-        delay(100);
     }
 }
 
