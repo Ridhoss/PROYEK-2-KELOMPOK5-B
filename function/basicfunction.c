@@ -118,3 +118,64 @@ void gambarAwan(int x, int y)
     fillellipse(x + 40, y, 30, 20);
     fillellipse(x - 40, y, 30, 20);
 }
+
+void inputNama(char *nama, int kotakX, int kotakY, int kotakW, int kotakH,
+    int tombolX, int tombolY, int tombolW, int tombolH) {
+
+    int pos = 0;
+    char ch;
+    int x = kotakX + 10; 
+    int y = kotakY + 10;
+
+    // Fokus pada teks input
+    setcolor(BLACK); // teks warna hitam (supaya kontras di input box putih)
+    setbkcolor(WHITE); // background transparan pas input
+    settextstyle(DEFAULT_FONT, HORIZ_DIR, 2);
+
+    while (1) {
+        if (kbhit()) {
+            ch = getch();
+
+            if (ch == 13) { // Enter ditekan
+                break;
+            }
+            else if (ch == 8 && pos > 0) { // Backspace
+                pos--;
+                nama[pos] = '\0';
+
+                // Hapus dan redraw semua teks di kotak input
+                setfillstyle(SOLID_FILL, WHITE);
+                bar(kotakX + 2, kotakY + 2, kotakX + kotakW - 2, kotakY + kotakH - 2);
+                outtextxy(x, y, nama);
+            }
+            else if (pos < 49 && ch >= 32 && ch <= 126) { // Karakter normal
+                // Hitung lebar nama saat ini
+                int currentWidth = textwidth(nama);
+
+                // Cek apakah masih muat dalam kotak
+                if (currentWidth + textwidth((char*)"W") < kotakW - 20) { // sedikit margin kanan
+                    nama[pos] = ch;
+                    nama[pos + 1] = '\0';
+
+                    // Hapus dan redraw
+                    setfillstyle(SOLID_FILL, WHITE);
+                    bar(kotakX + 2, kotakY + 2, kotakX + kotakW - 2, kotakY + kotakH - 2);
+                    outtextxy(x, y, nama);
+                    pos++;
+                }
+            }
+        }
+
+        // Cek klik mouse
+        if (ismouseclick(WM_LBUTTONDOWN)) {
+            int mx, my;
+            getmouseclick(WM_LBUTTONDOWN, mx, my);
+            if (mx >= tombolX && mx <= tombolX + tombolW &&
+                my >= tombolY && my <= tombolY + tombolH) {
+                // Kalau tombol diklik
+                tampilanAwal(); // kembali ke menu awal
+                break;
+            }
+        }
+    }
+}

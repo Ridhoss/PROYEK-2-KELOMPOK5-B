@@ -11,4 +11,6 @@ void tampilanPlay();
 
 void PopUpPause();
 
+void tampilanInput();
+
 #endif   

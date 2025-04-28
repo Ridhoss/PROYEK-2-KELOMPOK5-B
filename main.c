@@ -21,6 +21,7 @@ int main() {
     initwindow(fullscreen_width, fullscreen_height, "Snake Game", 0, 0);
 
     int posisiLayar = 0;
+    tampilanInput();
 
     for (;;) {
         cleardevice();

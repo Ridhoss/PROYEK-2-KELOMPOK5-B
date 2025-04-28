@@ -39,7 +39,7 @@ void tampilanAwal() {
         10 + iconWidth, 10 + iconHeight
     );
 
-    //Pojok Kanan Atas: icon guide_logo
+    // Pojok Kanan Atas: icon guide_logo
     readimagefile(
         "assets/guide_logo.bmp",
         fullscreen_width - iconWidth - 10, 20,
@@ -91,29 +91,67 @@ void tampilanAwal() {
 // pembuat modul : Salma
 // dimodifikasi oleh : -
 void tampilanPlay() {
-    setbkcolor(BLACK); 
+    setbkcolor(BLACK);
     cleardevice();
 
-    Titik(); 
+    Titik();
+
+    int iconWidth = 90, 
+    iconHeight = 25;  
+    int centerX = fullscreen_width / 2;
+    int iconY = fullscreen_height / 2 - iconHeight / 2 - 50;  
+    int spacing = 85; 
+
+    //panah kiri
+    int kiriX1 = centerX - iconWidth - spacing;
+    int kiriY1 = iconY;
+    int kiriX2 = centerX - spacing;
+    int kiriY2 = iconY + iconHeight;
+
+    //panah kanan
+    int kananX1 = centerX + spacing;
+    int kananY1 = iconY;
+    int kananX2 = centerX + iconWidth + spacing;
+    int kananY2 = iconY + iconHeight;
+
+    readimagefile(
+        "assets/pkiri.bmp",
+        centerX - iconWidth - spacing,
+        iconY,
+        centerX - spacing,
+        iconY + iconHeight
+    );
     
-    for (int i = 0; i < fullscreen_width + 40; i += 60) {  
-        gambarAwan(i, 0);
-    }
+    
+    readimagefile(
+        "assets/snake1.bmp",
+        centerX - iconWidth / 2,
+        iconY,
+        centerX + iconWidth / 2,
+        iconY + iconHeight
+    );
+
+
+    readimagefile(
+        "assets/pkanan.bmp",
+        centerX + spacing,
+        iconY,
+        centerX + iconWidth + spacing,
+        iconY + iconHeight
+    );
 
     char judul[] = "GET READY!";
-    tulisan(0, 130, fullscreen_width, 0, "WHITE", judul, 6, Center);
+    tulisan(0, 70, fullscreen_width, 0, "WHITE", judul, 6, Center);
 
 
     int tombolLebar = 150, tombolTinggi = 50;
     int posisiX = (fullscreen_width - tombolLebar) / 2;
-    int posisiY = 220;
-
+    int posisiY = iconY + iconHeight + 50;  
     tombol(posisiX, posisiY, tombolLebar, tombolTinggi, "GREEN", "Play", 3);
 
-    // Event klik tombol
+   
     while (1) {
         int x, y;
-        // Jika tombol kiri mouse ditekan
         if (ismouseclick(WM_LBUTTONDOWN)) {
             getmouseclick(WM_LBUTTONDOWN, x, y);
 
@@ -122,8 +160,7 @@ void tampilanPlay() {
             break;
         }
     }
-} 
-
+}
 // prosedur untuk tampilan arena ingame
 // pembuat modul : Salma
 // dimodifikasi oleh : -
@@ -145,6 +182,7 @@ void tampilanArena()
     LoopGame();
 }
 
+
 // prosedur untuk tampilan popup saat game di pause
 // pembuat modul : Ridho
 // dimodifikasi oleh : -
@@ -162,3 +200,49 @@ void PopUpPause()
     tombol(popupX + (popupWidth / 2) - 50, popupY + popupHeight / 2 + 30, 100, 40, "RED", "EXIT", 2);
     setbkcolor(CYAN);
 }
+
+void tampilanInput() {
+    setbkcolor(BLACK);
+    cleardevice();
+
+    Titik(); 
+
+   
+    readimagefile(
+        "assets/judul.bmp",
+        (getmaxx() - 300) / 2,
+        10 + 50, 
+        (getmaxx() - 300) / 2 + 300,
+        10 + 50 + 207 
+    );
+
+    int layarTengahX = getmaxx() / 2;
+
+    setcolor(WHITE);
+    setbkcolor(BLACK);
+    settextstyle(BOLD_FONT, HORIZ_DIR, 2);
+    outtextxy(layarTengahX - textwidth((char*)"Masukkan Nama")/2, 370, (char*)"Masukkan Nama");
+
+ 
+    int kotakW = 300;
+    int kotakH = 40;
+    int kotakX = layarTengahX - kotakW/2;
+    int kotakY = 420;
+
+    setfillstyle(SOLID_FILL, WHITE);
+    bar(kotakX, kotakY, kotakX + kotakW, kotakY + kotakH);
+
+
+    int tombolLebar = 200;
+    int tombolTinggi = 50;
+    int posisiX = (getmaxx() - tombolLebar) / 2;
+    int posisiY = kotakY + 85;
+
+    tombol(posisiX, posisiY, tombolLebar, tombolTinggi, "GREEN", "MASUK", 3);
+
+    char nama[20] = "";
+    inputNama(nama, kotakX, kotakY, kotakW, kotakH, posisiX, posisiY, tombolLebar, tombolTinggi);
+
+    closegraph();
+}
+
