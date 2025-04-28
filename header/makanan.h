@@ -3,6 +3,7 @@
 #define MAKANAN_H
 #include <graphics.h>
 #include "mechanism.h"
+#include <math.h>
 
 typedef enum {
     NORMAL,
@@ -23,5 +24,10 @@ makananType GeneratemakananType();
 
 void Makanan(MakananStruct makanan);
 
+void gambarApel(int x, int y, int ukuran);
+
+void gambarScApel(int x, int y, int ukuran);
+
+void gambarRacun(int x, int y, int ukuran);
 
 #endif   

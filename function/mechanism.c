@@ -150,6 +150,10 @@ void LoopGame() {
         
          // Jika game tidak dipause, jalankan game seperti biasa
         if (!paused) {
+            // *Batasi FPS (Frame Per Second)*
+            if (currentTime - lastUpdate < frameDelay) continue;
+            lastUpdate = currentTime;
+          
             // *Percepat ular seiring waktu*
             double elapsedTime = (currentTime - lastUpdate) / CLOCKS_PER_SEC;
             if (elapsedTime >= 60) { // Setiap 60 detik, percepat ular
@@ -201,6 +205,9 @@ void LoopGame() {
             setvisualpage(activePage);
         } else {
             PopUpPause();
+            setvisualpage(activePage); // Pakai page yang terakhir
+            PopUpPause();
+            delay(100); 
         }
 
         CekTabrakan();
@@ -215,4 +222,8 @@ void ResetGame() {
     arah = RIGHT;
     panjangUlar = 3;
     score = 0;
+
+    setactivepage(0);
+    setvisualpage(0);
+    cleardevice();
 }
