@@ -11,6 +11,7 @@
 #include "../header/stopwatch.h"
 #include "../header/mechanism.h"
 
+
 // prosedur untuk tampilan awal
 // pembuat modul : Ridho
 // dimodifikasi oleh : Salma
@@ -19,6 +20,10 @@ void tampilanAwal() {
     cleardevice();
 
     Titik(); 
+
+    printf("nama : %s\n", nama);
+    printf("score: %d\n", lastScore);
+    printf("time: %d\n", lastTime);
 
     // Menampilkan logo snacksnake
     readimagefile(
@@ -240,7 +245,6 @@ void tampilanInput() {
 
     tombol(posisiX, posisiY, tombolLebar, tombolTinggi, "GREEN", "MASUK", 3);
 
-    char nama[20] = "";
     inputNama(nama, kotakX, kotakY, kotakW, kotakH, posisiX, posisiY, tombolLebar, tombolTinggi);
 
     closegraph();

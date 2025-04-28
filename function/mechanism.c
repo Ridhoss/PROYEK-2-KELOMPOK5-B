@@ -13,7 +13,12 @@
 
 bool paused = false;
 bool gameOver = false;
+
 int score = 0;
+int lastScore = 0;
+char nama[100] = "";
+int lastTime = 0;
+
 int fullscreen_width = 640;
 int fullscreen_height = 480;
 
@@ -212,5 +217,19 @@ void ResetGame() {
     paused = false;
     arah = RIGHT;
     panjangUlar = 3;
+    lastScore = score;
+    lastTime = elapsed_time;
+    SaveToLeaderboard(nama, lastScore, lastTime);
     score = 0;
+}
+
+void SaveToLeaderboard(char *name, int score, int time)
+{
+    FILE *file = fopen("leaderboard.txt", "a");
+    if (file != NULL) {
+        fprintf(file, "%s %d %d\n", name, lastScore, lastTime);
+        fclose(file);
+    } else {
+        printf("Error opening file!\n");
+    }
 }

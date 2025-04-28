@@ -5,6 +5,9 @@
 extern bool paused;
 extern bool gameOver;
 extern int score;
+extern int lastScore;
+extern char nama[100];
+extern int lastTime;
 
 extern int fullscreen_width;
 extern int fullscreen_height;
@@ -30,5 +33,7 @@ void LoopGame();
 void ResetGame();
 //header leaderboard
 void tampilkanLeaderboard();
+
+void SaveToLeaderboard(char *name, int score, int time);
 
 #endif   
