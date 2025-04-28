@@ -150,6 +150,10 @@ void LoopGame() {
         
          // Jika game tidak dipause, jalankan game seperti biasa
         if (!paused) {
+            // *Batasi FPS (Frame Per Second)*
+            if (currentTime - lastUpdate < frameDelay) continue;
+            lastUpdate = currentTime;
+
             // *Percepat ular seiring waktu*
             double elapsedTime = (currentTime - lastUpdate) / CLOCKS_PER_SEC;
             if (elapsedTime >= 60) { // Setiap 60 detik, percepat ular
@@ -200,7 +204,9 @@ void LoopGame() {
             // *Tampilkan buffer aktif*
             setvisualpage(activePage);
         } else {
+            setvisualpage(activePage); // Tampilkan buffer aktif saat game dipause
             PopUpPause();
+            delay(100); // Delay untuk menghindari flicker pada layar
         }
 
         CekTabrakan();
