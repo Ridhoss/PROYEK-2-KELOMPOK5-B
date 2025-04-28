@@ -10,7 +10,8 @@ void tampilanArena();
 void tampilanPlay();
 
 void PopUpPause();
-
+void tampilanNama();
 void tampilanInput();
+
 
 #endif   
