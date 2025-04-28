@@ -219,6 +219,19 @@ void LoopGame() {
 void ResetGame() {
     paused = false;
     arah = RIGHT;
-    panjangUlar = 3;
     score = 0;
+    gameOver = false; // sekalian reset gameOver juga!
+
+    // --- Hapus semua segmen ular ---
+    Segment *current = head;
+    while (current != NULL) {
+        Segment *next = current->next;
+        free(current);
+        current = next;
+    }
+    head = NULL;
+    tail = NULL;
+
+    // --- Inisialisasi ular awal ---
+    InitUlar();
 }

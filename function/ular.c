@@ -13,69 +13,96 @@
 
 extern int score;
 
-Segment ular[MAX_LENGTH];
-int panjangUlar = 3;
+Segment *head = NULL;
+Segment *tail = NULL;
 Direction arah = RIGHT;
 
 // Prosedur Inisialisasi posisi awal ular
-// pembuat modul : Dimas
-// dimodifikasi oleh : -
 void InitUlar() {
     int startX = SCREEN_WIDTH / 5;
     int startY = SCREEN_HEIGHT / 5;
 
-    for (int i = 0; i < panjangUlar; i++) {
-        ular[i].x = startX - (i * CELL_SIZE);
-        ular[i].y = startY;
+    // Buat kepala ular
+    head = (Segment *)malloc(sizeof(Segment));
+    head->x = startX;
+    head->y = startY;
+    head->next = NULL;
+    tail = head;
+
+    // Tambahkan segmen awal ke tubuh ular
+    for (int i = 1; i < 3; i++) {
+        Segment *newSegment = (Segment *)malloc(sizeof(Segment));
+        newSegment->x = startX - (i * CELL_SIZE);
+        newSegment->y = startY;
+        newSegment->next = NULL;
+        tail->next = newSegment;
+        tail = newSegment;
     }
 }
 
 // Prosedur Menggerakkan ular
-// pembuat modul : Dimas
-// dimodifikasi oleh : -
 void GerakUlar() {
-    // Pindahkan badan ular mengikuti kepala
-    for (int i = panjangUlar - 1; i > 0; i--) {
-        ular[i] = ular[i - 1];
-    }
+    // Buat segmen baru untuk kepala
+    Segment *newHead = (Segment *)malloc(sizeof(Segment));
+    newHead->x = head->x;
+    newHead->y = head->y;
 
     // Gerakkan kepala ular berdasarkan arah
-    if (arah == UP) ular[0].y -= CELL_SIZE;
-    if (arah == DOWN) ular[0].y += CELL_SIZE;
-    if (arah == LEFT) ular[0].x -= CELL_SIZE;
-    if (arah == RIGHT) ular[0].x += CELL_SIZE;
+    if (arah == UP) newHead->y -= CELL_SIZE;
+    if (arah == DOWN) newHead->y += CELL_SIZE;
+    if (arah == LEFT) newHead->x -= CELL_SIZE;
+    if (arah == RIGHT) newHead->x += CELL_SIZE;
+
+    newHead->next = head;
+    head = newHead;
+
+    // Hapus segmen terakhir (ekor)
+    Segment *temp = head;
+    while (temp->next != tail) {
+        temp = temp->next;
+    }
+    free(tail);
+    tail = temp;
+    tail->next = NULL;
 }
 
 // Prosedur Mengecek tabrakan dengan dinding atau tubuh sendiri
-// pembuat modul : Dimas
-// dimodifikasi oleh : -
 void CekTabrakan() {
     // tabrakan dengan dinding
-    if (ular[0].x < 20 || ular[0].x >= SCREEN_WIDTH - 20 ||
-        ular[0].y < 60 || ular[0].y >= SCREEN_HEIGHT - 20) {
+    if (head->x < 20 || head->x >= SCREEN_WIDTH - 20 ||
+        head->y < 60 || head->y >= SCREEN_HEIGHT - 20) {
         gameOver = true;
         ResetGame();
         tampilanAwal();
     }
-    for (int i = 1; i < panjangUlar; i++) {
-        if (ular[0].x == ular[i].x && ular[0].y == ular[i].y) {
+
+    // tabrakan dengan tubuh sendiri
+    Segment *current = head->next;
+    while (current != NULL) {
+        if (head->x == current->x && head->y == current->y) {
             gameOver = true;
             ResetGame();
             tampilanAwal();
         }
+        current = current->next;
     }
 }
 
 // Prosedur Mengecek apakah ular makan makanan
-// pembuat modul : Dimas
-// dimodifikasi oleh : Samudra
 bool CekMakanMakanan(MakananStruct *makanan) {
-    if (ular[0].x == makanan->x && ular[0].y == makanan->y) {
-        panjangUlar++;
+    if (head->x == makanan->x && head->y == makanan->y) {
+        // Tambahkan segmen baru ke ekor
+        Segment *newSegment = (Segment *)malloc(sizeof(Segment));
+        newSegment->x = tail->x;
+        newSegment->y = tail->y;
+        newSegment->next = NULL;
+        tail->next = newSegment;
+        tail = newSegment;
+
         if (makanan->type == SPECIAL) score += 5;
         else if (makanan->type == POISON) score -= 3;
         else score += 1;
-        
+
         GenerateRandomPosition(&makanan->x, &makanan->y);
         makanan->type = GeneratemakananType();
         return true;
@@ -84,14 +111,14 @@ bool CekMakanMakanan(MakananStruct *makanan) {
 }
 
 // Prosedur Menggambar ulang ular di layar
-// pembuat modul : Dimas
-// dimodifikasi oleh : -
 void GambarUlar() {
     // Gambar kepala dengan warna merah
-    Kotak(ular[0].x, ular[0].y, ular[0].x + CELL_SIZE, ular[0].y + CELL_SIZE, "GREEN");
+    Kotak(head->x, head->y, head->x + CELL_SIZE, head->y + CELL_SIZE, "GREEN");
 
-    // Gambar badan dengan warna hijau
-    for (int i = 1; i < panjangUlar; i++) {
-        Kotak(ular[i].x, ular[i].y, ular[i].x + CELL_SIZE, ular[i].y + CELL_SIZE, "LIGHTGREEN");
+    // Gambar tubuh dengan warna hijau
+    Segment *current = head->next;
+    while (current != NULL) {
+        Kotak(current->x, current->y, current->x + CELL_SIZE, current->y + CELL_SIZE, "LIGHTGREEN");
+        current = current->next;
     }
 }
