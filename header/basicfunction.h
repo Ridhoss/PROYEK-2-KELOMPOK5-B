@@ -18,5 +18,6 @@ void Titik();
 void tombol(int x, int y, int panjang, int lebar, CSTR warna, CSTR teks, int ukuranTeks);
 // prosedur untuk membuat hiasan awan
 void gambarAwan(int x, int y);
+void inputNama(char* nama, int x, int y, int width, int height, int tombolX, int tombolY, int tombolW, int tombolH);
 
 #endif   
