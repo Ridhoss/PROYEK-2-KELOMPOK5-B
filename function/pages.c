@@ -19,7 +19,7 @@ void tampilanAwal() {
     cleardevice();
 
     Titik(); 
-
+    tampilanNama(); 
     // Menampilkan logo snacksnake
     readimagefile(
         "assets/judul.bmp",
@@ -40,11 +40,11 @@ void tampilanAwal() {
     );
 
     // Pojok Kanan Atas: icon guide_logo
-    readimagefile(
-        "assets/guide_logo.bmp",
-        fullscreen_width - iconWidth - 10, 20,
-        fullscreen_width - 10, 10 + iconHeight
-    );
+    // readimagefile(
+    //     "assets/guide_logo.bmp",
+    //     fullscreen_width - iconWidth - 10, 20,
+    //     fullscreen_width - 10, 10 + iconHeight
+    // );
 
     // Pojok Kiri Bawah: icon snake_logo
     readimagefile(
@@ -86,6 +86,41 @@ void tampilanAwal() {
     }
 }
 
+void tampilanNama() {
+    int kotakLebar = 150;
+    int kotakTinggi = 40;
+
+   
+    int margin = 20; 
+    int kotakX1 = fullscreen_width - kotakLebar - margin;
+    int kotakY1 = margin;
+    int kotakX2 = fullscreen_width - margin;
+    int kotakY2 = kotakY1 + kotakTinggi;
+
+    
+    setfillstyle(SOLID_FILL, BLACK); 
+    bar(kotakX1, kotakY1, kotakX2, kotakY2);
+
+    setcolor(WHITE); 
+    rectangle(kotakX1, kotakY1, kotakX2, kotakY2);
+
+  
+    char nama[] = "Salma"; 
+    settextstyle(10, HORIZ_DIR, 2); 
+    setcolor(WHITE); 
+
+    int textWidth = textwidth(nama);
+    int textHeight = textheight(nama);
+
+    outtextxy(
+        kotakX1 + (kotakLebar - textWidth) / 2, 
+        kotakY1 + (kotakTinggi - textHeight) / 2, 
+        nama
+    );
+}
+
+
+
 
 // prosedur untuk tampilan play sebelum ingame
 // pembuat modul : Salma
@@ -101,18 +136,7 @@ void tampilanPlay() {
     int centerX = fullscreen_width / 2;
     int iconY = fullscreen_height / 2 - iconHeight / 2 - 50;  
     int spacing = 85; 
-
-    //panah kiri
-    int kiriX1 = centerX - iconWidth - spacing;
-    int kiriY1 = iconY;
-    int kiriX2 = centerX - spacing;
-    int kiriY2 = iconY + iconHeight;
-
-    //panah kanan
-    int kananX1 = centerX + spacing;
-    int kananY1 = iconY;
-    int kananX2 = centerX + iconWidth + spacing;
-    int kananY2 = iconY + iconHeight;
+    
 
     readimagefile(
         "assets/pkiri.bmp",
